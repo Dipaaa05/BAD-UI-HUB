@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Parabolic Toss</title>
+        <link rel="stylesheet" href="../slider.css">
+        <script src="Toss.js"></script>
+    </head>
+    <body>
+        <a href="../index.html" class="nav-home">🏠</a>
+        <div id="container">
+            <audio id="audio" src="../hotline-bling-drake-low-quality-made-with-Voicemod.mp3" autoplay loop></audio>
+            <audio id="mock-sound" src="https://www.myinstants.com/media/sounds/sadtrombone.swf.mp3"></audio>
+
+            <h2 style="margin-top:0; color:#9C27B0;">Launch!</h2>
+            
+            <div id="toss-area">
+                <div id="projectile"></div>
+                <input type="range" id="volume" min="0" max="100" value="0" disabled style="position: absolute; bottom: -10px; left: 0; margin: 0;">
+            </div>
+            
+            <p id="value">Volume: 0%</p>
+
+            <div id="power-container">
+                <div id="power-fill"></div>
+            </div>
+
+            <button id="action-btn" class="hold-btn">Hold and release to launch!</button>
+        </div>
+    </body>
+</html>

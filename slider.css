@@ -1,0 +1,269 @@
+/* --- STILI GLOBALI --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+audio { display: none; }
+
+/* --- CONTROLLO VOLUME (Usato in tutti i giochi) --- */
+#volume {
+    width: 300px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+#volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #4CAF50;
+    border-radius: 50%;
+}
+
+/* --- NAVIGAZIONE GLOBALE (VIA DI FUGA) --- */
+.nav-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #222;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    border: 2px solid #555;
+    transition: all 0.2s ease;
+    z-index: 9999; /* Z-index altissimo per non farsi coprire dai bottoni di Whack-a-Volume! */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-home:hover {
+    background-color: #f44336; /* Diventa rosso "uscita di emergenza" al passaggio del mouse */
+    border-color: #ff7961;
+    transform: scale(1.05);
+}
+
+/* --- CONTENITORE STANDARD (Giochi 1 e 2) --- */
+#container {
+    width: 450px;
+    min-height: 350px;
+    background-color: #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    padding: 20px;
+    text-align: center;
+}
+
+/* --- GIOCO 1: BLACKJACK --- */
+#game-area button {
+    padding: 10px 15px; margin: 5px; border: none; border-radius: 5px;
+    background-color: #4CAF50; color: white; cursor: pointer; font-weight: bold;
+}
+#cards-display { min-height: 60px; margin: 15px 0; display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; }
+.card {
+    display: inline-flex; justify-content: center; align-items: center;
+    width: 40px; height: 55px; background: white; border-radius: 5px;
+    font-weight: bold; font-size: 1.2rem; color: black;
+    animation: slideIn 0.3s ease-out forwards;
+}
+.card.red { color: red; }
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-20px) rotate(-10deg); }
+    to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* --- GIOCO 2: SWAP --- */
+#buttons-wrapper {
+    display: flex; flex-direction: row; gap: 15px; margin-bottom: 30px;
+    align-items: center; min-height: 60px;
+}
+.btn {
+    padding: 15px 25px; border: none; border-radius: 8px; background-color: #4CAF50;
+    color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; user-select: none;
+    transition: transform 0.1s, background-color 0.2s;
+}
+.btn-danger { background-color: #f44336; }
+
+/* --- GIOCO 3: WHACK --- */
+#ui-panel {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(40, 40, 40, 0.9); padding: 15px 30px; border-radius: 15px;
+    text-align: center; z-index: 100; border: 2px solid #444;
+}
+#game-area-whack {
+    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10; overflow: hidden;
+}
+.spawn-btn {
+    position: absolute; border: none; border-radius: 50%; color: white;
+    font-weight: bold; cursor: pointer; user-select: none; display: flex;
+    justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    animation: popIn 0.2s ease-out; transition: transform 0.05s;
+}
+.spawn-btn:active { transform: scale(0.9); }
+.btn-green { background-color: #4CAF50; border: 3px solid #388E3C; }
+.btn-red { background-color: #f44336; border: 3px solid #D32F2F; }
+@keyframes popIn { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+
+/* --- GIOCO 4: LANCIO PARABOLICO --- */
+#toss-area {
+    width: 380px;
+    height: 150px;
+    position: relative;
+    margin: 20px auto;
+}
+
+#projectile {
+    width: 20px;
+    height: 20px;
+    background-color: #9C27B0;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    display: none; /* Nascosto finché non si lancia */
+    z-index: 10;
+}
+
+#power-container {
+    width: 300px;
+    height: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+    border: 2px solid #555;
+}
+
+#power-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4CAF50, #FF9800, #f44336);
+}
+
+.hold-btn {
+    padding: 15px 25px;
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.hold-btn:active {
+    background-color: #7B1FA2;
+    transform: scale(0.95);
+}
+
+/* --- GIOCO 5: CURLING --- */
+#ice-track {
+    width: 380px;
+    height: 80px;
+    background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+    border: 2px solid #80deea;
+    border-radius: 40px;
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden; /* Nasconde la pietra se va oltre */
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.8);
+}
+
+#target-house {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(244, 67, 54, 0.2),
+        rgba(244, 67, 54, 0.2) 10px,
+        rgba(255, 255, 255, 0.2) 10px,
+        rgba(255, 255, 255, 0.2) 20px
+    );
+    border-radius: 0 40px 40px 0;
+    border-left: 2px dashed #f44336;
+}
+
+#stone {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #9e9e9e, #616161);
+    border: 4px solid #424242;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
+    transition: transform 0.1s;
+}
+
+#curling-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#launch-btn { background-color: #2196F3; }
+#sweep-btn { background-color: #00BCD4; font-size: 1.2rem; }
+#sweep-btn:disabled { background-color: #555; color: #888; cursor: not-allowed; }
+
+/* --- GIOCO 6: LA PAZIENZA --- */
+#patience-track {
+    width: 300px;
+    height: 15px;
+    background-color: #333;
+    border-radius: 10px;
+    position: relative;
+    margin: 40px 0;
+    border: 2px solid #555;
+}
+
+#patience-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #795548;
+    border-radius: 8px;
+}
+
+#patience-thumb {
+    width: 30px;
+    height: 30px;
+    background-color: #A1887F;
+    border-radius: 50%;
+    position: absolute;
+    top: -9px;
+    left: 0%;
+    transform: translateX(-50%);
+    cursor: grab;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    transition: background-color 0.2s;
+}
+
+#patience-thumb:active {
+    cursor: grabbing;
+    background-color: #D7CCC8;
+}
+
+.decimal-value {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    color: #ffb74d;
+    font-weight: bold;
+}
