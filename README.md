@@ -15,6 +15,9 @@ Welcome to the hell of User Experience.
 4. **⛳ Parabolic Toss**: Calibrate the power and launch the slider handle into the air. If it lands on the bar, you get your volume. If you charge it too much, you'll hit a home run into the void.
 5. **🥌 Curling Volume**: Throw the stone on the ice and sweep frantically to make it slide further. But beware of inertia: if you sweep too much, the stone will fly right off the track.
 6. **🐌 Patience Slider**: Move the mouse surgically to the right to gain thousandths of a volume percent. If your hand trembles and you move left, you'll lose progress 1000% faster. Oh, and if you lift your finger from the mouse button, the volume drops on its own.
+7. **⚖️ Keep the Balance**: Move your mouse to keep the slider's cursor in balance. Don't let it fall! Unless you want to lose your progress.
+8. **🗄️ Infinite Bureaucracy**: Ever wondered where the bureaucracy can get? Well, you'll be surpised! Fight with an annoying telematic-form system and hope to get your so desidered volume!
+9. **🦟 The Mosquito**: Mosquitos are pretty annoying, right? Well, i decided to gift you a big present by introducing them in this already infernal cave. Enjoy! ;D
 
 ## 🚀 How to Play (or how to drive your friends crazy)
 
