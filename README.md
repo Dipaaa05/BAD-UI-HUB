@@ -24,7 +24,7 @@ Welcome to the hell of User Experience.
 No installation required. It's pure HTML, CSS, and JavaScript.
 Just clone the repository or download the files and open `index.html` in any modern browser. 
 
-**[🔗 Click here to play the Live version right now!](link soon...)**
+**[🔗 Click here to play the Live version right now!](https://bad-ui-hub.vercel.app/)**
 
 ## ⚠️ Disclaimer
 
