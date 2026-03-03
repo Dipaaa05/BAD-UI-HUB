@@ -107,6 +107,8 @@ window.onload = function() {
             mockSound.volume = 1;
             mockSound.currentTime = 0; // Fa ripartire l'audio dall'inizio
             mockSound.play();
+            // Aggiorna il contatore dei fallimenti nel LocalStorage
+            localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
         }
     });
 

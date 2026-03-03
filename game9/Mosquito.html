@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Mosquito Volume</title>
+        <link rel="stylesheet" href="../slider.css">
+        <script src="Mosquito.js"></script>
+    </head>
+    <body id="body-area">
+        <a href="../index.html" class="nav-home">🏠</a>
+        
+        <div id="container">
+            <audio id="audio" src="../hotline-bling-drake-low-quality-made-with-Voicemod.mp3" autoplay loop></audio>
+            <audio id="mock-sound" src="https://www.myinstants.com/media/sounds/sadtrombone.swf.mp3"></audio>
+            <audio id="buzz-sound" src="https://www.myinstants.com/media/sounds/mosquito.mp3" loop></audio>
+
+            <h2 style="margin-top:0; color:#8D6E63;">Catch the Volume!</h2>
+            <p class="hint-text">The volume depends on where you squash the mosquito (Right = 100%).<br>Approach SLOWLY so you don't scare it.</p>
+            
+            <div id="fake-track">
+                <span style="position:absolute; left:0; top:15px; font-size:12px; color:#aaa;">0%</span>
+                <span style="position:absolute; right:0; top:15px; font-size:12px; color:#aaa;">100%</span>
+            </div>
+            
+            <p id="value" style="font-size: 1.5rem; font-weight: bold; margin: 10px 0;">Volume: 0%</p>
+        </div>
+
+        <div id="mosquito-area">
+            <div id="mosquito-thumb"></div>
+        </div>
+    </body>
+</html>

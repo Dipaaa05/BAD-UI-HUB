@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Volume Application</title>
+        <link rel="stylesheet" href="../slider.css">
+        <script src="Bureaucracy.js"></script>
+    </head>
+    <body>
+        <a href="../index.html" class="nav-home">🏠</a>
+        
+        <div id="container">
+            <audio id="audio" src="../hotline-bling-drake-low-quality-made-with-Voicemod.mp3" autoplay loop></audio>
+            <audio id="mock-sound" src="https://www.myinstants.com/media/sounds/sadtrombone.swf.mp3"></audio>
+
+            <div id="bureaucracy-form">
+                <div id="session-timer">Session expires in: <span id="time-left">01:30</span></div>
+                <h3 style="margin-top:0; border-bottom: 2px solid #333; padding-bottom: 5px;">Form 730/V - Acoustic App.</h3>
+                
+                <div class="form-group">
+                    <label>Requested Volume (%)</label>
+                    <input type="number" id="req-volume" class="form-input" placeholder="E.g. 50">
+                </div>
+
+                <div class="form-group">
+                    <label>Territorial Competence Office</label>
+                    <select id="req-office" class="form-input"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Appointment Date (Find an available slot)</label>
+                    <input type="date" id="req-date" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Detailed Justification (Min. 30 chars)</label>
+                    <textarea id="req-details" class="form-input" rows="2" style="resize: none;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Two-Factor Authentication (OTP)</label>
+                    <div class="otp-box">OTP: <span id="otp-display">000000</span> (<span id="otp-timer">5</span>s)</div>
+                    <input type="text" id="req-otp" class="form-input" placeholder="Enter the code above">
+                </div>
+
+                <div class="dark-pattern-buttons">
+                    <button id="submit-btn" class="btn-tiny-grey">I consent to the processing and proceed with submission</button>
+                    <button id="reset-trap-btn" class="btn-huge-green">CANCEL APPLICATION</button>
+                </div>
+            </div>
+
+            <div id="bureaucracy-loading">
+                <h3 style="color: #607D8B;">Processing Application...</h3>
+                <p style="font-size: 0.9rem; color: #ccc;">Please wait for your turn in the digital queue.</p>
+                <div class="progress-bar-container"><div id="progress-fill"></div></div>
+                <p id="loading-status" style="font-family: monospace; font-size: 0.8rem; color: #888;">Connecting to server...</p>
+                <button id="sollecita-btn" class="btn-bureaucracy" style="background: #FF9800; border-color: #E65100; margin-top: 15px;">⚠️ EXPEDITE REQUEST</button>
+            </div>
+
+            <div id="bureaucracy-result">
+                <div id="stamp" class="stamp">APPLICATION PROCESSED</div>
+                <p id="result-text" style="font-size: 1.1rem;"></p>
+                <p id="value" style="font-size: 1.5rem; font-weight: bold; margin: 20px 0; color: #4CAF50;">Volume: 0%</p>
+                <button id="restart-btn" class="btn-bureaucracy" style="background: #333;">File a New Appeal</button>
+            </div>
+
+        </div>
+    </body>
+</html>

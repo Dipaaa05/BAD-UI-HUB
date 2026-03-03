@@ -275,6 +275,273 @@ audio { display: none; }
     font-weight: bold;
 }
 
+/* --- GIOCO 7: LA LEVA (EQUILIBRISTA) --- */
+#lever-container {
+    width: 100%;
+    max-width: 350px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    margin: 30px 0;
+}
+
+#lever-bar {
+    width: 300px;
+    height: 12px;
+    background: #555;
+    border-radius: 6px;
+    position: relative;
+    /* Il punto di rotazione è esattamente al centro */
+    transform-origin: center center; 
+    /* Bordi rossi per indicare il pericolo */
+    border-left: 4px solid #f44336;
+    border-right: 4px solid #f44336;
+    z-index: 2;
+}
+
+#lever-fulcrum {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 30px solid #888;
+    margin-top: -2px;
+    z-index: 1;
+}
+
+#lever-knob {
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #FFC107, #FF9800);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 12px; /* Appoggiata sopra la barra */
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    /* Transizione usata solo quando cade */
+    transition: top 0.5s ease-in, opacity 0.5s;
+}
+
+/* Messaggio di istruzioni */
+.hint-text {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* --- GIOCO 8: BUROCRAZIA INFINITA --- */
+#bureaucracy-form {
+    width: 100%;
+    text-align: left;
+    background: #e0e0e0;
+    color: #333;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    font-family: "Times New Roman", Times, serif; /* Font formale e noioso */
+}
+
+.form-group {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.form-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 0.75rem;
+}
+
+#bureaucracy-loading, #bureaucracy-result {
+    display: none;
+    width: 100%;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+    border: inset 2px #999;
+}
+
+#progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #607D8B;
+    transition: width 0.3s;
+}
+
+.btn-bureaucracy {
+    background-color: #607D8B;
+    color: white;
+    padding: 10px;
+    border: 2px solid #455A64;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    font-family: inherit;
+}
+
+.btn-bureaucracy:disabled {
+    background-color: #aaa;
+    border-color: #888;
+    cursor: not-allowed;
+}
+
+.stamp {
+    color: #D32F2F;
+    border: 4px solid #D32F2F;
+    display: inline-block;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transform: rotate(-10deg);
+    margin: 20px 0;
+    opacity: 0.8;
+}
+
+#session-timer {
+    text-align: right;
+    color: #D32F2F;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #999;
+    padding-bottom: 5px;
+}
+
+.otp-box {
+    background: #222;
+    color: #0f0;
+    padding: 8px;
+    font-family: monospace;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+}
+
+.dark-pattern-buttons {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+/* Il bottone trappola: enorme e invitante */
+.btn-huge-green {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 10px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border: 3px solid #388E3C;
+    border-radius: 8px;
+    cursor: pointer;
+    flex-grow: 1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.btn-huge-green:hover { background-color: #45a049; }
+
+/* Il VERO bottone: minuscolo e invisibile */
+.btn-tiny-grey {
+    background-color: #ccc;
+    color: #666;
+    padding: 6px;
+    font-size: 0.65rem;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 30%;
+    text-align: center;
+}
+
+/* --- GIOCO 9: IL CURSORE ZANZARA --- */
+#mosquito-area {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    pointer-events: none; /* Lascia passare i click al container sotto */
+    z-index: 1000;
+}
+
+#mosquito-thumb {
+    width: 18px;
+    height: 18px;
+    background-color: #3e2723;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; 
+    left: 10%;
+    cursor: crosshair;
+    pointer-events: auto; /* Questo invece è cliccabile! */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    /* Il movimento non è fluido, scatta in modo irritante come un insetto */
+    transition: left 0.1s ease-out, top 0.1s ease-out; 
+}
+
+/* Le alette che sbattono velocissime */
+#mosquito-thumb::before, #mosquito-thumb::after {
+    content: '';
+    position: absolute;
+    width: 12px; 
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: -3px;
+    animation: flap 0.02s infinite alternate;
+}
+
+#mosquito-thumb::before { left: -8px; transform-origin: right; }
+#mosquito-thumb::after { right: -8px; transform-origin: left; }
+
+@keyframes flap {
+    from { transform: rotate(-30deg); }
+    to { transform: rotate(30deg); }
+}
+
+/* Finta barra del volume per dare un riferimento */
+#fake-track {
+    width: 100%;
+    max-width: 300px;
+    height: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    margin: 40px 0;
+    position: relative;
+    border: 1px solid #555;
+}
+
 @media (max-width: 500px) {
     h2 {
         font-size: 1.4rem;

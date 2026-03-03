@@ -3,6 +3,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Bad UI: Volume Control Edition">
+    <meta property="og:description" content="9 terrible ways to regulate volume. Will you be able to reach 100% without breaking your mouse?">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"> 
+    <meta name="theme-color" content="#f44336">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚️</text></svg>">
     <title>Bad UI: Volume Control Edition</title>
     <style>
         body {
@@ -56,7 +63,8 @@
 
     <header>
         <h1>BAD UI HUB</h1>
-        <p>A bunch of terrible volume's sliders UIs in one place</p>
+        <p>9 terrible ways to regulate volume. Will you be able to reach 100% without breaking your mouse?</p>
+        <p id="fail-counter" style="color: #f44336; font-weight: bold; margin-top: 15px; font-size: 1.2rem; display: none;"></p>
     </header>
 
     <div id="games-grid"></div>
@@ -70,7 +78,10 @@
             { title: "🎯 Whack-a-Volume", url: "game3/Whack.html", hoverColor: "#4CAF50" },
             { title: "⛳ Parabolic Toss", url: "game4/Toss.html", hoverColor: "#9C27B0" },
             { title: "🥌 Curling Volume", url: "game5/Curling.html", hoverColor: "#00BCD4" },
-            { title: "🐌 Patience Slider", url: "game6/Patience.html", hoverColor: "#795548" }
+            { title: "🐌 Patience Slider", url: "game6/Patience.html", hoverColor: "#795548" },
+            { title: "⚖️ Keep the Balance", url: "game7/Lever.html", hoverColor: "#E91E63" },
+            { title: "🗄️ Infinite Bureaucracy", url: "game8/Bureaucracy.html", hoverColor: "#607D8B" },
+            { title: "🦟 The Mosquito", url: "game9/Mosquito.html", hoverColor: "#8D6E63" }
         ];
 
         const grid = document.getElementById("games-grid");
@@ -88,6 +99,15 @@
             
             grid.appendChild(card);
         });
+
+        // Mostra i fallimenti se ce ne sono
+        const fails = localStorage.getItem('badui_fails') || 0;
+        if (fails > 0) {
+            const failText = document.getElementById("fail-counter");
+            failText.style.display = "block";
+            failText.textContent = `💀 Volume resets (so far): ${fails}`;
+        }
+        
     </script>
 
 </body>

@@ -85,6 +85,8 @@ window.onload = function() {
         mockSound.volume = 1;
         mockSound.currentTime = 0;
         mockSound.play();
+        // Aggiorna il contatore dei fallimenti nel LocalStorage
+        localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
 
         // Rimette a posto le cose
         if (isSwapped) swapButtons();
