@@ -115,15 +115,27 @@ window.onload = function() {
         audio.volume = currentVolume / 100;
     }
 
-    // --- EVENTI DEL MOUSE E DEL TOCCO ---
-    // Supporto sia per PC che per Smartphone
+    // --- EVENTI DEL MOUSE (PC) ---
     actionBtn.addEventListener('mousedown', startCharging);
     actionBtn.addEventListener('mouseup', stopCharging);
     actionBtn.addEventListener('mouseleave', () => {
         if (isCharging) stopCharging();
     });
 
-    // Per il touch sui telefoni
-    actionBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startCharging(); });
-    actionBtn.addEventListener('touchend', (e) => { e.preventDefault(); stopCharging(); });
+    // --- EVENTI TOUCH (SMARTPHONE) ---
+    actionBtn.addEventListener('touchstart', (e) => { 
+        // Impedisce il doppio-tap per zoomare o l'evidenziazione del bottone
+        e.preventDefault(); 
+        startCharging(); 
+    }, { passive: false });
+
+    actionBtn.addEventListener('touchend', (e) => { 
+        e.preventDefault(); 
+        stopCharging(); 
+    });
+
+    actionBtn.addEventListener('touchcancel', (e) => { 
+        // Se il telefono interrompe il tocco (es. arriva una notifica)
+        if (isCharging) stopCharging(); 
+    });
 }

@@ -11,7 +11,8 @@ audio { display: none; }
 
 /* --- CONTROLLO VOLUME (Usato in tutti i giochi) --- */
 #volume {
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     height: 10px;
     background-color: #ddd;
     border-radius: 5px;
@@ -52,18 +53,20 @@ audio { display: none; }
 
 /* --- CONTENITORE STANDARD (Giochi 1 e 2) --- */
 #container {
-    width: 450px;
+    width: 90%; /* Usa la percentuale invece dei pixel fissi */
+    max-width: 450px; /* Non supera mai la grandezza originale */
     min-height: 350px;
     background-color: #2a2a2a;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 50px auto;
+    margin: 60px auto 20px auto; /* Più margine sopra per non coprire il tasto Home */
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     padding: 20px;
     text-align: center;
+    box-sizing: border-box; /* Evita che il padding sbordi dallo schermo */
 }
 
 /* --- GIOCO 1: BLACKJACK --- */
@@ -118,7 +121,8 @@ audio { display: none; }
 
 /* --- GIOCO 4: LANCIO PARABOLICO --- */
 #toss-area {
-    width: 380px;
+    max-width: 380px;
+    width: 100%;
     height: 150px;
     position: relative;
     margin: 20px auto;
@@ -138,7 +142,8 @@ audio { display: none; }
 }
 
 #power-container {
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     height: 20px;
     background-color: #333;
     border-radius: 10px;
@@ -173,7 +178,8 @@ audio { display: none; }
 
 /* --- GIOCO 5: CURLING --- */
 #ice-track {
-    width: 380px;
+    max-width: 380px;
+    width: 100%;
     height: 80px;
     background: linear-gradient(to right, #e0f7fa, #b2ebf2);
     border: 2px solid #80deea;
@@ -226,7 +232,8 @@ audio { display: none; }
 
 /* --- GIOCO 6: LA PAZIENZA --- */
 #patience-track {
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     height: 15px;
     background-color: #333;
     border-radius: 10px;
@@ -266,4 +273,46 @@ audio { display: none; }
     font-size: 1.5rem;
     color: #ffb74d;
     font-weight: bold;
+}
+
+@media (max-width: 500px) {
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    .btn, .hold-btn {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+
+    #cards-display {
+        gap: 2px;
+    }
+
+    .card {
+        width: 35px;
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    /* Rimpicciolisce il pannello UI del Whack-a-Volume */
+    #ui-panel {
+        width: 85%;
+        padding: 10px 15px;
+        box-sizing: border-box;
+    }
+
+    /* Rende il pulsante Home più compatto */
+    .nav-home {
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    /* Griglia della HomePage su una singola colonna */
+    #games-grid {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
 }
