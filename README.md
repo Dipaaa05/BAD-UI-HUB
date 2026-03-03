@@ -3,7 +3,7 @@
 Have you ever thought that adjusting your computer's volume was too simple, boring, and lacking in thrills? 
 **I fixed that for you.**
 
-This project is a collection of 6 mini-games (or rather, psychological tortures) designed with a single goal in mind: to make a trivial action like turning up the volume of a song as frustrating, difficult, and irritating as possible.
+This project is a collection of some mini-games (or rather, psychological tortures) designed with a single goal in mind: to make a trivial action like turning up the volume of a song as frustrating, difficult, and irritating as possible.
 
 Welcome to the hell of User Experience.
 
