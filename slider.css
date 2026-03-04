@@ -94,3 +94,53 @@ audio { display: none; }
     .btn { padding: 10px 15px; font-size: 1rem; }
     .nav-home { top: 10px; left: 10px; padding: 8px 12px; font-size: 0.85rem; }
 }
+
+/* =========================================
+   SISTEMA A GRIGLIA PER I MENU (Home & Categorie)
+   ========================================= */
+.menu-header {
+    text-align: center;
+    margin: 40px 20px;
+}
+.menu-header h1 { color: #f44336; font-size: 2.8rem; margin-bottom: 5px; }
+.menu-header .subtitle { color: #aaa; font-style: italic; font-size: 1.1rem; }
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+}
+
+.menu-card {
+    background-color: #2a2a2a;
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    transition: transform 0.2s, background-color 0.2s;
+    border-top: 5px solid #4CAF50;
+    text-align: center;
+}
+.menu-card:hover { transform: translateY(-5px); background-color: #333; }
+.menu-card h2 { margin: 0 0 10px 0; font-size: 1.8rem; }
+.menu-card p { margin: 0; color: #bbb; font-size: 0.95rem; }
+
+/* Colori specifici per le categorie */
+.cat-casino { border-top-color: #FFD700; }
+.cat-physics { border-top-color: #9C27B0; }
+.cat-life { border-top-color: #8D6E63; }
+.cat-sport { border-top-color: #00BCD4; }
+.cat-misc { border-top-color: #607D8B; }
+
+/* Card Disabilitata (Coming Soon) */
+.menu-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-top-color: #555;
+}
+.menu-card.disabled:hover { transform: none; background-color: #2a2a2a; }

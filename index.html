@@ -1,114 +1,80 @@
-<html lang="it">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Bad UI: Volume Control Edition">
-    <meta property="og:description" content="9 terrible ways to regulate volume. Will you be able to reach 100% without breaking your mouse?">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"> 
-    <meta name="theme-color" content="#f44336">
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎚️</text></svg>">
-    <title>Bad UI: Volume Control Edition</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        header { text-align: center; margin: 60px 0; }
-        h1 { font-size: 3rem; margin: 0; color: #f44336; letter-spacing: 2px; }
-
-        /* Griglia CSS: si adatta automaticamente al numero di bottoni */
-        #games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            width: 80%;
-            max-width: 900px;
-        }
-
-        .game-card {
-            background-color: #1e1e1e;
-            border: 2px solid #333;
-            border-radius: 12px;
-            padding: 40px 20px;
-            text-align: center;
-            text-decoration: none;
-            color: white;
-            font-size: 1.3rem;
-            font-weight: bold;
-            transition: all 0.2s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .game-card:hover {
-            transform: scale(1.05);
-            background-color: #252525;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>BAD UI HUB</h1>
-        <p>A lot of terrible ways to regulate volume. Will you be able to reach 100% without breaking your mouse?</p>
-        <p id="fail-counter" style="color: #f44336; font-weight: bold; margin-top: 15px; font-size: 1.2rem; display: none;"></p>
-    </header>
-
-    <div id="games-grid"></div>
-
-    <script>
-        // IL CUORE DELLA SCALABILITÀ
-        // Per aggiungere un gioco, aggiungi semplicemente un oggetto qui sotto.
-        const games = [
-            { title: "♠️ Blackjack", url: "game1/BlackJack.html", hoverColor: "#2196F3" },
-            { title: "🔀 Roulette", url: "game2/Swap.html", hoverColor: "#FF9800" },
-            { title: "🎯 Whack-a-Volume", url: "game3/Whack.html", hoverColor: "#4CAF50" },
-            { title: "⛳ Parabolic Toss", url: "game4/Toss.html", hoverColor: "#9C27B0" },
-            { title: "🥌 Curling Volume", url: "game5/Curling.html", hoverColor: "#00BCD4" },
-            { title: "🐌 Patience Slider", url: "game6/Patience.html", hoverColor: "#795548" },
-            { title: "⚖️ Keep the Balance", url: "game7/Lever.html", hoverColor: "#E91E63" },
-            { title: "🗄️ Infinite Bureaucracy", url: "game8/Bureaucracy.html", hoverColor: "#607D8B" },
-            { title: "🦟 The Mosquito", url: "game9/Mosquito.html", hoverColor: "#8D6E63" }
-        ];
-
-        const grid = document.getElementById("games-grid");
-
-        // Genera i bottoni dinamicamente
-        games.forEach(game => {
-            const card = document.createElement("a");
-            card.href = game.url;
-            card.className = "game-card";
-            card.textContent = game.title;
-            
-            // Applica il colore dinamico quando passi sopra col mouse
-            card.addEventListener("mouseenter", () => card.style.borderColor = game.hoverColor);
-            card.addEventListener("mouseleave", () => card.style.borderColor = "#333");
-            
-            grid.appendChild(card);
-        });
-
-        // Mostra i fallimenti se ce ne sono
-        const fails = localStorage.getItem('badui_fails') || 0;
-        if (fails > 0) {
-            const failText = document.getElementById("fail-counter");
-            failText.style.display = "block";
-            failText.textContent = `💀 Volume resets (so far): ${fails}`;
-        }
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         
-    </script>
+        <title>Bad UI HUB</title>
+        <meta name="description" content="A diabolical collection of the worst, most frustrating, and terrible ways to control your volume. Choose your torture.">
+        <meta name="author" content="Marco Di Pasquale / Dipaaa05">
+        <meta name="theme-color" content="#f44336">
 
-</body>
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://bad-ui-hub.vercel.app/">
+        <meta property="og:title" content="Bad UI HUB">
+        <meta property="og:description" content="A diabolical collection of the worst, most frustrating, and terrible ways to control your volume.">
+        <meta property="og:image" content="https://bad-ui-hub.vercel.app/og-image.jpg">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="https://bad-ui-hub.vercel.app/">
+        <meta name="twitter:title" content="Bad UI HUB">
+        <meta name="twitter:description" content="A diabolical collection of the worst, most frustrating, and terrible ways to control your volume.">
+        <meta name="twitter:image" content="https://bad-ui-hub.vercel.app/og-image.jpg">
+
+        <link rel="stylesheet" href="slider.css">
+    </head>
+    <body>
+
+        <div class="menu-header">
+            <h1>BAD UI HUB</h1>
+            <p class="subtitle">Terrible ways to control your volume</p>
+            
+            <div id="fail-tracker" style="margin-top: 15px; font-size: 1.2rem; background: #222; display: inline-block; padding: 8px 20px; border-radius: 20px; border: 2px solid #555; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
+                💀 Total Fails: <span id="fail-count" style="color: #f44336; font-weight: bold; font-family: monospace; font-size: 1.4rem;">0</span>
+            </div>
+        </div>
+
+        <div class="menu-grid">
+            <a href="games/casino/index.html" class="menu-card cat-casino">
+                <h2>🎰 Casino</h2>
+                <p>Luck won't save you here.</p>
+            </a>
+
+            <a href="games/fisica/index.html" class="menu-card cat-physics">
+                <h2>⚖️ Physics</h2>
+                <p>Gravity and friction are your enemies.</p>
+            </a>
+
+            <a href="games/dailyLife/index.html" class="menu-card cat-life">
+                <h2>🏡 Daily Life</h2>
+                <p>Ordinary tasks, extraordinary frustration.</p>
+            </a>
+
+            <a href="games/sport/index.html" class="menu-card cat-sport">
+                <h2>🏅 Sport</h2>
+                <p>Sweat and tears for a decent volume.</p>
+            </a>
+
+            <a href="games/vari/index.html" class="menu-card cat-misc">
+                <h2>🗃️ Misc & Arcade</h2>
+                <p>Fast paced UI disasters.</p>
+            </a>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Prende il dato e prova forzatamente a convertirlo in un numero intero
+                let fails = parseInt(localStorage.getItem('badui_fails'), 10);
+                
+                // Se il dato non c'era o si era corrotto diventando NaN, lo forziamo a 0
+                if (isNaN(fails)) {
+                    fails = 0;
+                    localStorage.setItem('badui_fails', 0); // Ripara anche il salvataggio rotto
+                }
+                
+                // Aggiorna il numero rosso
+                document.getElementById('fail-count').textContent = fails;
+            });
+        </script>
+    </body>
 </html>
