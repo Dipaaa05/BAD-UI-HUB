@@ -25,7 +25,9 @@ window.onload = function() {
         
         isCharging = true;
         power = 0;
-        projectile.style.display = 'none';
+        projectile.style.display = 'block';
+        projectile.style.left = '10px';
+        projectile.style.bottom = '0px';
 
         // Velocità estrema della barra (ping-pong ogni 15ms)
         powerInterval = setInterval(() => {
@@ -42,79 +44,64 @@ window.onload = function() {
     }
 
     function stopCharging() {
-        if (!isCharging) return;
+        if (!isCharging || isFlying) return;
         isCharging = false;
-        clearInterval(powerInterval);
-        
-        throwProjectile(power);
-    }
-
-    // --- LOGICA DEL LANCIO E FISICA ---
-    function throwProjectile(finalPower) {
         isFlying = true;
-        projectile.style.display = 'block';
-        
-        // La barra intera è lunga 300px. 
-        // Vogliamo che a 100% di potenza, il lancio arrivi a 360px (Fuori campo!)
-        const maxDistance = 360; 
-        const targetX = (finalPower / 100) * maxDistance;
-        
-        let startTime = null;
-        const flightDuration = 800; // Il lancio dura 800ms
+        clearInterval(powerInterval);
 
-        function animateFlight(currentTime) {
-            if (!startTime) startTime = currentTime;
-            const elapsed = currentTime - startTime;
-            
-            // Variabile 't' va da 0.0 a 1.0 (inizio e fine volo)
-            let t = Math.min(elapsed / flightDuration, 1);
-            
-            // X è lineare: va da 0 al targetX
-            let currentX = t * targetX;
-            
-            // Y usa una sinusoide per simulare la parabola (va su e poi giù)
-            // L'altezza massima dipende dalla potenza
-            let maxHeight = 100 + (finalPower * 0.5); 
-            let currentY = Math.sin(t * Math.PI) * maxHeight;
+        // --- FISICA DEL LANCIO ---
+        // Il moltiplicatore 0.65 assicura che con power=100 si superi lo slider (circa 400px di distanza)
+        let velocity = power * 0.65; 
+        let angle = Math.PI / 4; // 45 gradi per la parabola perfetta
+        let gravity = 9.8;
+        let time = 0;
 
-            projectile.style.left = `${currentX}px`;
-            projectile.style.bottom = `${currentY}px`;
+        let flyInterval = setInterval(() => {
+            time += 0.2; // Velocità dello scorrere del tempo nell'animazione
+            let x = velocity * Math.cos(angle) * time;
+            let y = (velocity * Math.sin(angle) * time) - (0.5 * gravity * time * time);
 
-            if (t < 1) {
-                requestAnimationFrame(animateFlight);
+            if (y <= 0 && time > 0.5) {
+                // IL PROIETTILE TOCCA TERRA
+                clearInterval(flyInterval);
+                isFlying = false;
+                
+                let landingX = Math.round(x);
+                projectile.style.bottom = '0px';
+
+                // --- NUOVA LOGICA: DUE ZONE FUORI CAMPO (Prima di 40px e dopo 340px) ---
+                if (landingX < 40 || landingX > 340) {
+                    currentVolume = 0;
+                    mockSound.volume = 1;
+                    mockSound.currentTime = 0;
+                    mockSound.play().catch(()=>{});
+                    
+                    // Aggiorna il contatore dei fallimenti nel LocalStorage
+                    localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
+                    
+                    valueDisplay.textContent = landingX < 40 ? "Volume: 0% (Too weak!)" : "Volume: 0% (Too strong!)";
+                    valueDisplay.style.color = "#f44336";
+                } else {
+                    // Atterrato SULLA barra! (Calcoliamo la percentuale togliendo i 40px di "vuoto" iniziale)
+                    currentVolume = Math.round(((landingX - 40) / 300) * 100);
+                    
+                    // Sicurezza extra per non avere volumi oltre 100 o sotto 0
+                    if (currentVolume > 100) currentVolume = 100;
+                    if (currentVolume < 0) currentVolume = 0;
+
+                    valueDisplay.textContent = `Volume: ${currentVolume}%`;
+                    valueDisplay.style.color = "white";
+                }
+
+                volumeSlider.value = currentVolume;
+                audio.volume = currentVolume / 100;
             } else {
-                // IL VOLO È FINITO! Calcoliamo dove è atterrato.
-                evaluateLanding(currentX);
+                // Aggiorna la posizione in volo visivamente
+                // Il "+ 10" serve perché il proiettile parte fisicamente da left: 10px
+                projectile.style.left = `${10 + x}px`;
+                projectile.style.bottom = `${y}px`;
             }
-        }
-
-        requestAnimationFrame(animateFlight);
-    }
-
-    // --- VALUTAZIONE DELL'ATTERRAGGIO ---
-    function evaluateLanding(landingX) {
-        isFlying = false;
-        
-        // La barra del volume è larga 300px.
-        if (landingX > 300) {
-            // FUORICAMPO! Ha sballato.
-            currentVolume = 0;
-            mockSound.volume = 1;
-            mockSound.currentTime = 0;
-            mockSound.play();
-            // Aggiorna il contatore dei fallimenti nel LocalStorage
-            localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
-            valueDisplay.textContent = "Volume: 0% (Out of range!)";
-            valueDisplay.style.color = "red";
-        } else {
-            // Atterrato sulla barra! Calcoliamo la percentuale (da 0 a 300)
-            currentVolume = Math.round((landingX / 300) * 100);
-            valueDisplay.textContent = `Volume: ${currentVolume}%`;
-            valueDisplay.style.color = "white";
-        }
-
-        volumeSlider.value = currentVolume;
-        audio.volume = currentVolume / 100;
+        }, 20); // Aggiorna ogni 20ms (circa 50 FPS)
     }
 
     // --- EVENTI DEL MOUSE (PC) ---
@@ -126,7 +113,7 @@ window.onload = function() {
 
     // --- EVENTI TOUCH (SMARTPHONE) ---
     actionBtn.addEventListener('touchstart', (e) => { 
-        // Impedisce il doppio-tap per zoomare o l'evidenziazione del bottone
+        // Impedisce il doppio-tap per zoomare o l'evidenziazione del bottone su mobile
         e.preventDefault(); 
         startCharging(); 
     }, { passive: false });
@@ -134,10 +121,5 @@ window.onload = function() {
     actionBtn.addEventListener('touchend', (e) => { 
         e.preventDefault(); 
         stopCharging(); 
-    });
-
-    actionBtn.addEventListener('touchcancel', (e) => { 
-        // Se il telefono interrompe il tocco (es. arriva una notifica)
-        if (isCharging) stopCharging(); 
     });
 }

@@ -2,12 +2,11 @@
     width: 100%;
     max-width: 380px;
     height: 150px;
-    background-color: #111;
-    border: 2px dashed #555;
-    border-radius: 10px;
+    background-color: transparent;
+    border: none;
     position: relative;
     margin: 20px 0;
-    overflow: hidden;
+    overflow: visible;
 }
 #projectile {
     width: 20px;

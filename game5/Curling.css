@@ -16,7 +16,9 @@
     border: 4px solid #f44336;
     position: absolute;
     right: 10px;
-    top: 6px;
+    /* CENTRATURA PERFETTA: */
+    top: 50%;
+    transform: translateY(-50%);
     background: radial-gradient(circle, #f44336 20%, white 20%, white 40%, #2196F3 40%, #2196F3 60%, white 60%);
     box-sizing: border-box;
 }
@@ -28,7 +30,9 @@
     border-radius: 50%;
     position: absolute;
     left: 10px;
-    top: 41px;
+    /* CENTRATURA PERFETTA: */
+    top: 50%;
+    transform: translateY(-50%);
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     z-index: 2;
 }

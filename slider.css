@@ -45,7 +45,7 @@ audio { display: none; }
     transition: all 0.2s ease;
     z-index: 100;
 }
-.nav-home:hover { background-color: #4CAF50; border-color: #4CAF50; }
+.nav-home:hover { background-color: #f44336; border-color: #f44336; }
 
 /* Bottoni Standard */
 .btn {

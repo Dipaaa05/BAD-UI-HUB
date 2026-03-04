@@ -59,7 +59,7 @@ window.onload = function() {
         const btn = document.createElement('button');
         
         const isGreen = Math.random() > getRedProb();
-        btn.className = `spawn-btn ${isGreen ? 'btn-green' : 'btn-red'}`;
+        btn.className = `spawn-btn ${isGreen ? 'mole-btn' : 'bomb-btn'}`;
         btn.textContent = isGreen ? '+1' : 'RESET';
 
         const minSize = Math.max(30, 60 - (currentVolume * 0.3));

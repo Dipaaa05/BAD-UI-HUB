@@ -28,7 +28,7 @@ window.onload = function() {
         position = 10;
         velocity = 0;
         stone.style.left = position + 'px';
-        stone.style.transform = 'translateY(-50%) rotate(0deg)'; // Resetta anche la rotazione visiva
+        stone.style.transform = 'translateY(-50%) rotate(0deg)';
         launchBtn.disabled = false;
         sweepBtn.disabled = true;
     }
@@ -36,57 +36,65 @@ window.onload = function() {
     // EVENTO LANCIO
     launchBtn.addEventListener('click', () => {
         if (audio.paused) audio.play().catch(() => {});
-        if (isMoving) return;
-
+        
+        // Assegna una spinta iniziale fissa ma "insufficiente" senza la scopa
+        velocity = 3.5; 
         isMoving = true;
         launchBtn.disabled = true;
-        sweepBtn.disabled = false; // Attiva la scopa!
-        
-        // Il lancio iniziale è debolissimo. Da solo porterebbe il volume max al 15%
-        velocity = 1.2 + Math.random() * 0.5; 
-        
+        sweepBtn.disabled = false;
+
         function slideStone() {
             position += velocity;
-            // Attrito del ghiaccio (rallenta costantemente la pietra)
-            velocity -= 0.012; 
-
-            stone.style.left = position + 'px';
+            // Attrito severo
+            velocity -= 0.04; 
             
-            // Fa girare leggermente la pietra per effetto visivo
-            stone.style.transform = `translateY(-50%) rotate(${position}deg)`;
+            // Applica sia il movimento in asse X, che il mantenimento in centro Y (-50%), più la rotazione
+            stone.style.left = position + 'px';
+            stone.style.transform = `translateY(-50%) rotate(${position * 2}deg)`;
 
-            const maxPos = iceTrack.clientWidth - stone.clientWidth;
+            // CALCOLO CENTRO ESATTO
+            const trackWidth = iceTrack.offsetWidth;
+            const targetCenter = trackWidth - 60; // Centro esatto del bersaglio a 100px di larghezza, posizionato a right:10px
+            const stoneCenter = position + (stone.offsetWidth / 2);
 
-            // HA SUPERATO LA PISTA? (Sballato oltre il 100%)
-            if (position >= maxPos + 20) {
+            // FALLIMENTO: Se supera il centro del bersaglio! (Con 15px di pietà)
+            if (stoneCenter > targetCenter + 15) {
                 isMoving = false;
                 cancelAnimationFrame(animationFrame);
+                sweepBtn.disabled = true;
+
                 updateVolume(0);
                 mockSound.volume = 1;
                 mockSound.currentTime = 0;
-                mockSound.play();
-                // Aggiorna il contatore dei fallimenti nel LocalStorage
-                localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
-                valueDisplay.textContent = "Volume: 0% (Out of range!)";
-                valueDisplay.style.color = "red";
+                mockSound.play().catch(()=>{});
                 
-                // Resetta dopo 2 secondi
+                localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
+                
+                valueDisplay.textContent = "Volume: 0% (You swept too much!)";
+                valueDisplay.style.color = "#f44336";
+                
                 setTimeout(resetStone, 2000);
                 return;
             }
 
-            // LA PIETRA SI È FERMATA
+            // LA PIETRA SI È FERMATA NORMALMENTE
             if (velocity <= 0) {
                 isMoving = false;
                 cancelAnimationFrame(animationFrame);
-                sweepBtn.disabled = true; // Disabilita la scopa
+                sweepBtn.disabled = true;
                 
-                // Calcola il volume in base a dove si è fermata (da 10 a maxPos)
-                let vol = Math.round(((position - 10) / (maxPos - 10)) * 100);
+                // Calcola il volume come percentuale di avvicinamento al centro
+                let startPos = 10 + (stone.offsetWidth / 2);
+                let travelDistance = targetCenter - startPos;
+                let actualTraveled = stoneCenter - startPos;
+                
+                let vol = Math.round((actualTraveled / travelDistance) * 100);
+                if (vol < 0) vol = 0;
+                if (vol > 100) vol = 100; // Sicurezza
+
                 updateVolume(vol);
                 valueDisplay.style.color = "white";
                 
-                // Pronto per il prossimo lancio
                 setTimeout(resetStone, 2500); 
                 return;
             }
@@ -100,11 +108,9 @@ window.onload = function() {
     // EVENTO SPAZZATA (Il cuore della Bad UI)
     sweepBtn.addEventListener('click', () => {
         if (isMoving && velocity > 0) {
-            // Spazzando riduci l'attrito istantaneamente, prolungando il viaggio.
-            // Aggiungiamo un piccolo boost alla velocità!
-            velocity += 0.18; 
+            // Spazzando riduci l'attrito istantaneamente e prolunghi il viaggio
+            velocity += 0.20; 
             
-            // Effetto grafico sul tasto
             sweepBtn.style.transform = "scale(0.9)";
             setTimeout(() => sweepBtn.style.transform = "scale(1)", 50);
         }
