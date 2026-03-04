@@ -24,7 +24,6 @@ window.onload = function() {
         valueDisplay.textContent = `Volume: ${currentVolume}%`;
         
         // 2. Il Bottone Timido: calcola quanto deve rimpicciolirsi
-        // A 0% è scala 1 (100%), a 100% è scala 0.3 (30%)
         let scaleValue = 1 - (currentVolume * 0.007);
         addBtn.style.transform = `scale(${scaleValue})`;
     }
@@ -34,7 +33,7 @@ window.onload = function() {
         buttonsWrapper.style.flexDirection = isSwapped ? "row-reverse" : "row";
     }
 
-    // 1. Il Secchio Bucato: inizia a far perdere volume
+    // 1. Il Secchio Bucato: perde 1% ogni 300ms di inattività
     function startLeaking() {
         clearInterval(leakInterval);
         leakInterval = setInterval(() => {
@@ -42,33 +41,56 @@ window.onload = function() {
                 currentVolume--;
                 updateVolume();
             }
-        }, 300); // Perde 1% ogni 300 millisecondi di inattività!
+        }, 300); 
     }
 
-    // Ferma la perdita di volume e resetta il timer (l'utente sta cliccando)
     function resetLeakTimer() {
         clearInterval(leakInterval);
         clearTimeout(leakTimeout);
-        // Se si ferma per più di 800ms, inizia a scendere
         leakTimeout = setTimeout(startLeaking, 800); 
     }
 
-    // Evento Click: +1% Volume
-    addBtn.addEventListener('click', function() {
+    // --- NUOVA MECCANICA: LO SWAP FANTASMA (Indipendente dalla velocità) ---
+    function scheduleRandomSwap() {
+        // Scatta in un momento casuale tra 0.4 e 1.5 secondi
+        const delay = Math.random() * 1100 + 400;
+        
+        setTimeout(() => {
+            // La probabilità di swap cresce man mano che l'utente clicca!
+            // Es: currentVolume a 80 -> 80% di probabilità di scambiarsi
+            const swapChance = currentVolume / 100;
+            
+            // Scambia solo se ha superato almeno il 5% e il "dado" fa un numero minore della probabilità
+            if (currentVolume > 5 && Math.random() < swapChance) {
+                swapButtons();
+            }
+            
+            scheduleRandomSwap(); // Loop infinito
+        }, delay);
+    }
+
+    // Avvia il timer fantasma appena si apre la pagina
+    scheduleRandomSwap();
+
+
+    // --- EVENTO CLICK: +1% Volume ---
+    addBtn.addEventListener('click', function(e) {
+        if (e) e.preventDefault();
         if (audio.paused) audio.play().catch(() => {});
 
+        // 3. IL CALCOLO DEI CLICK AL SECONDO (Mantenuto per punire lo spam)
         const currentTime = Date.now();
         const timeSinceLastClick = currentTime - lastClickTime;
         lastClickTime = currentTime;
 
-        resetLeakTimer(); // Tieni il secchio "tappato" mentre clicca
-
-        // 3. Falso Senso di Sicurezza: scambia i bottoni solo se sta spammando E ha superato il 60%
-        if (timeSinceLastClick < 250 && currentVolume > 60) {
-            if (Math.random() > 0.4) { // 60% di probabilità di scambio ad ogni click veloce
-                swapButtons();
-            }
+        // Punizione per chi clicca in preda al panico (meno di 120ms): 
+        // Il bottone diventa ancora più piccolo del normale per un attimo
+        if (timeSinceLastClick < 120) {
+            let panicScale = 1 - (currentVolume * 0.009); // Rimpicciolimento maggiorato
+            addBtn.style.transform = `scale(${panicScale})`;
         }
+
+        resetLeakTimer(); 
 
         if (currentVolume < 100) {
             currentVolume++;
@@ -76,19 +98,22 @@ window.onload = function() {
         }
     });
 
-    // 4. Suono di Scherno: Click sul RESET (spesso per sbaglio)
-    resetBtn.addEventListener('click', function() {
+    // --- EVENTO CLICK: RESET (La trappola) ---
+    resetBtn.addEventListener('click', function(e) {
+        if (e) e.preventDefault();
+        
         currentVolume = 0;
         updateVolume();
         
-        // Suona il triste trombone (abbassando Drake per farsi sentire)
+        // Suona il triste trombone
         mockSound.volume = 1;
         mockSound.currentTime = 0;
         mockSound.play();
+        
         // Aggiorna il contatore dei fallimenti nel LocalStorage
         localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
 
-        // Rimette a posto le cose
+        // Rimette a posto le cose per fargli rifare la fatica
         if (isSwapped) swapButtons();
         resetLeakTimer(); 
     });

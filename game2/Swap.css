@@ -1,0 +1,10 @@
+#buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+}
+#add-btn {
+    transition: transform 0.1s ease; /* Serve per l'effetto rimpicciolimento */
+}

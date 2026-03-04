@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; /* Evita le barre di scorrimento mentre compaiono i bottoni */
+}
+#ui-panel {
+    background-color: #2a2a2a;
+    padding: 15px 30px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    text-align: center;
+    z-index: 10;
+    width: 90%;
+    max-width: 400px;
+}
+#game-area {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 150px);
+    overflow: hidden;
+    margin-top: 10px;
+}
+.mole-btn, .bomb-btn {
+    position: absolute;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transform: scale(0);
+    animation: pop 0.2s forwards;
+}
+.mole-btn { background-color: #4CAF50; width: 50px; height: 50px; z-index: 2; }
+.bomb-btn { background-color: #f44336; width: 60px; height: 60px; z-index: 1; }
+
+@keyframes pop {
+    to { transform: scale(1); }
+}

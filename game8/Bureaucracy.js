@@ -20,7 +20,6 @@ window.onload = function() {
     const reqOtp = document.getElementById('req-otp');
 
     let currentOTP = "";
-    let targetDateStr = "";
     let sessionSeconds = 90; // 1.5 minutes
 
     audio.volume = 0;
@@ -39,15 +38,7 @@ window.onload = function() {
         });
     }
 
-    // --- 2. SETUP SECRET DATE ---
-    function setupSecretDate() {
-        let today = new Date();
-        let randomDays = Math.floor(Math.random() * 30) + 1;
-        today.setDate(today.getDate() + randomDays);
-        targetDateStr = today.toISOString().split('T')[0];
-    }
-
-    // --- 3. OTP GENERATOR ---
+    // --- 2. OTP GENERATOR ---
     function generateOTP() {
         currentOTP = Math.floor(100000 + Math.random() * 900000).toString();
         otpDisplay.textContent = currentOTP;
@@ -63,7 +54,7 @@ window.onload = function() {
         }, 1000);
     }
 
-    // --- 4. SESSION TIMER ---
+    // --- 3. SESSION TIMER ---
     setInterval(() => {
         if (phaseForm.style.display !== 'none') {
             sessionSeconds--;
@@ -79,12 +70,18 @@ window.onload = function() {
     }, 1000);
 
     setupOffices();
-    setupSecretDate();
     generateOTP();
 
     // --- THE VISUAL TRAP ---
     resetTrapBtn.addEventListener('click', () => {
         document.querySelectorAll('.form-input').forEach(i => i.value = "");
+        
+        // MODIFICA: Il trombone suona perché sei caduto nella trappola visiva!
+        mockSound.volume = 1; 
+        mockSound.currentTime = 0;
+        mockSound.play().catch(()=>{});
+        localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
+
         alert("You clicked 'CANCEL APPLICATION'. Form reset.");
     });
 
@@ -92,10 +89,10 @@ window.onload = function() {
     submitBtn.addEventListener('click', () => {
         if (audio.paused) audio.play().catch(() => {});
         
-        // 1. Office hours
+        // 1. Office hours (Modificato a 30 secondi)
         let currentSecond = new Date().getSeconds();
-        if (currentSecond > 15) {
-            alert(`The digital offices only accept applications during the first 15 seconds of every minute. (Currently at ${currentSecond} seconds). Try again at the appropriate time.`);
+        if (currentSecond > 30) {
+            alert(`The digital offices only accept applications during the first 30 seconds of every minute. (Currently at ${currentSecond} seconds). Try again shortly.`);
             return;
         }
 
@@ -112,9 +109,9 @@ window.onload = function() {
         // 5. OTP Check
         if (reqOtp.value !== currentOTP) return alert("Security Error: The entered OTP is incorrect or expired. Try again.");
 
-        // 6. Secret Date Check
-        if (reqDate.value !== targetDateStr) {
-            alert(`Sorry, the date ${reqDate.value} has no available slots. The calendars are full. Select another date and retry submission.`);
+        // 6. Mandatory Date Check (Solo controllo che non sia vuota)
+        if (reqDate.value === "") {
+            alert("Application rejected: Appointment date is mandatory. Please select any date.");
             return;
         }
 
@@ -161,12 +158,16 @@ window.onload = function() {
         const valueDisplay = document.getElementById('value');
 
         if (!isApproved) {
+            // MODIFICA: Il trombone suona per pratica respinta.
             stamp.textContent = "APPLICATION REJECTED";
             stamp.style.color = stamp.style.borderColor = "#D32F2F";
             resultText.innerHTML = "Application <strong>CANCELLED</strong> for contempt of a digital public official following an unauthorized expedite attempt.";
             valueDisplay.textContent = `Granted Volume: 0%`;
-            mockSound.volume = 1; mockSound.play();
-            // Aggiorna il contatore dei fallimenti nel LocalStorage
+            
+            mockSound.volume = 1; 
+            mockSound.currentTime = 0;
+            mockSound.play();
+            
             localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
             audio.volume = 0;
         } else {
@@ -176,9 +177,7 @@ window.onload = function() {
             let finalVol = Math.random() > 0.5 ? Math.min(100, requestedVol + tax) : Math.max(0, requestedVol - tax);
             
             if (finalVol !== requestedVol) {
-                mockSound.volume = 1; mockSound.play();
-                // Aggiorna il contatore dei fallimenti nel LocalStorage
-                localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
+                // MODIFICA: Trombone e fallimento RIMOSSI da qui!
                 resultText.innerHTML = `Application for ${requestedVol}% granted.<br><br>However, due to the <em>Administrative Withholding (${tax}%)</em>, the output volume has been adjusted.`;
             } else {
                 resultText.innerHTML = "Administrative miracle: Request processed without adjustments.";

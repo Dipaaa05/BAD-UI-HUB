@@ -1,0 +1,42 @@
+#toss-area {
+    width: 100%;
+    max-width: 380px;
+    height: 150px;
+    background-color: #111;
+    border: 2px dashed #555;
+    border-radius: 10px;
+    position: relative;
+    margin: 20px 0;
+    overflow: hidden;
+}
+#projectile {
+    width: 20px;
+    height: 20px;
+    background-color: #9C27B0;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    box-shadow: 0 0 10px #9C27B0;
+}
+#power-container {
+    width: 100%;
+    max-width: 300px;
+    height: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 2px solid #555;
+    overflow: hidden;
+}
+#power-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #FF9800;
+}
+#action-btn {
+    background-color: #9C27B0;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+}
