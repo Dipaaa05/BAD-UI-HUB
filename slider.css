@@ -144,3 +144,75 @@ audio { display: none; }
     border-top-color: #555;
 }
 .menu-card.disabled:hover { transform: none; background-color: #2a2a2a; }
+
+/* Stile per le icone personalizzate delle categorie */
+.category-icon {
+    width: 60px; /* Modifica questo valore per rendere l'icona più grande o più piccola */
+    height: 60px;
+    object-fit: contain; /* Evita che l'icona si deformi */
+    margin-bottom: 10px; /* Spazio tra l'icona e il titolo */
+    display: inline-block;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.site-footer {
+    text-align: center;
+    padding: 40px 20px 20px 20px;
+    background-color: #1a1a1a; /* Stesso colore di sfondo del body o leggermente diverso */
+    border-top: 1px solid #333;
+    margin-top: auto; /* Aiuta a spingere il footer in basso */
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #f44336; /* Richiama il rosso del tuo brand (Bad UI Hub) */
+}
+
+/* Stile speciale per il bottone Buy Me a Coffee */
+.footer-links .donate-btn {
+    background-color: #FFDD00; /* Giallo tipico di Buy me a coffee */
+    color: #000000;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.footer-links .donate-btn:hover {
+    background-color: #ffea00;
+    color: #000000;
+    transform: scale(1.05);
+}
+
+.footer-copy {
+    color: #555;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* MEDIA QUERY per schermi molto piccoli */
+@media (max-width: 500px) {
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
