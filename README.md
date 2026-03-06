@@ -21,14 +21,7 @@ Here is our current roster of digital suffering categories. Try to get your volu
 
 ## How to Play (or how to drive your friends crazy)
 
-No installation required. It's pure HTML, CSS, and JavaScript.
-Just clone the repository or download the files and open `index.html` in any modern browser. 
-
-**[Click here to play the Live version right now!](https://bad-ui-hub.vercel.app/)**
-
-## Contributing (Join the Dark Side)
-
-We are always looking for new ways to make our users miserable. If you have an awful UI idea and want to code it, feel free to open a Pull Request. Check out our `CONTRIBUTING.md` (if we ever write one that is actually readable) for the guidelines. 
+**[Click here to access our site now!](https://baduihub.com)**
 
 ## Disclaimer
 
@@ -42,7 +35,7 @@ The creators of this project take **no responsibility** for:
 
 ## License: Look, but don't touch (the money)
 
-The code is released under the **PolyForm Noncommercial License** (and visual assets under **CC BY-NC 4.0**). 
+The code is released under the **PolyForm Noncommercial License**. 
 What does this mean in human terms? You are highly encouraged to read the code, laugh at it, and even contribute to make it worse. But you **cannot** use it for commercial purposes, clone the hub to run your own ads, or monetize our misery in any way. 
 
 We are the only ones allowed to profit from your frustration. See the `LICENSE` file before our lawyers get angry.
