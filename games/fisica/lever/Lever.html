@@ -3,8 +3,44 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
         <title>Keep the Balance</title>
-        <script src="https://app.termly.io/resource-blocker/48f43e02-cb14-4933-988b-b64dc3489783?autoBlock=on"></script>
+
+        <link rel="icon" href="/img/BadUIHub.png" type="image/png">
+
+        <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
+        <meta name="theme-color" content="#f44336">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Bad UI Hub: Lever Volume">
+        <meta property="og:description" content="Can you survive the torture? Try to set your volume with the Lever.">
+        <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
+
+        <script src="https://app.termly.io/resource-blocker/48f43e02-cb14-4933-988b-b64dc3489783?autoBlock=on" onload="onTermlyLoaded()"></script>
+
+        <script>
+            let initialConsent = null;
+
+            function onTermlyLoaded() {
+                // Ci assicuriamo che l'oggetto Termly sia pronto
+                if (window.Termly) {
+                    window.Termly.on('consent', function(data) {
+                        // Al primo caricamento salviamo lo stato iniziale
+                        if (initialConsent === null) {
+                            initialConsent = JSON.stringify(data.categories);
+                        } else {
+                            // Se l'utente cambia le preferenze, ricarichiamo la pagina
+                            let newConsent = JSON.stringify(data.categories);
+                            if (initialConsent !== newConsent) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+        
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQ5KP12WZ7"></script>
         <script>
