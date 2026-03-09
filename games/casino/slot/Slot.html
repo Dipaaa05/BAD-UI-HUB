@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="UTF-8">
 
-        <title>Casino - Bad UI</title>
+        <title>Volume Slot</title>
 
         <link rel="icon" href="/img/BadUIHub.png" type="image/png">
 
         <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
         <meta name="theme-color" content="#f44336">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="Bad UI Hub: Casino section">
-        <meta property="og:description" content="Choose your game and test your (non) luck.">
+        <meta property="og:title" content="Bad UI Hub: Volume Slot">
+        <meta property="og:description" content="Can you survive the torture? Try to set your volume with the Slot Machine.">
         <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
@@ -40,7 +40,7 @@
                 }
             }
         </script>
-
+        
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQ5KP12WZ7"></script>
         <script>
@@ -52,56 +52,57 @@
         </script>
         <!-- End Google tag (gtag.js) -->
 
-        <link rel="stylesheet" href="../../slider.css">
+        <link rel="stylesheet" href="../../../slider.css">
+        <link rel="stylesheet" href="Slot.css">
+        <script src="Slot.js"></script>
+
     </head>
     <body>
-        <a href="../../index.html" class="nav-home">🏠</a>
+        <audio id="background-audio" loop>
+            <source src="../../../audio/mainmusic.mp3" type="audio/mpeg">
+        </audio>
 
-        <div class="menu-header">
-            <img src="../../img/category-casino.png" alt="Casino" class="category-icon" style="width: 80px; height: 80px;">
-            <h1 style="color: #FFD700;">Casino</h1>
-            <p class="subtitle">Luck won't save you here.</p>
+        <a href="../index.html" class="nav-home">🏠</a>
+            
+        <div class="slot-container">
+            <h2>Adjust the Volume (Try your luck 🎰)</h2>
+            
+            <div class="reels">
+                <div class="reel" id="reel-1">
+                    <span class="symbol">50</span>
+                </div>
+                <div class="reel" id="reel-2">
+                    <span class="symbol">+</span>
+                </div>
+                <div class="reel" id="reel-3">
+                    <span class="symbol">10</span>
+                </div>
+            </div>
+
+            <button id="action-btn" class="bad-btn start-mode">START</button>
+            
+            <div class="volume-display">
+                Current Volume: <span id="current-vol">50</span>%
+            </div>
         </div>
 
-        <!-- BEGIN AADS AD UNIT 2429843 -->
-
-        <div id="frame" style="width: 100%; text-align: center; margin-top: 20px; overflow: hidden;">
-                <iframe
-                data-termly-skip 
-                data-aa='2429843' 
-                src='https://acceptable.a-ads.com/2429843/?size=Adaptive&background_color=1a1a1a&title_color=f44336&title_hover_color=ffac00'
-                style='border:0; padding:0; width:100%; max-width:728px; height:90px; overflow:hidden; background-color:transparent;'>
-                </iframe>
+        <div class="legal-disclaimer">
+            <p>Disclaimer: No real money is involved in this game. The only currency we accept is your sanity.</p>
         </div>
 
-        <!-- END AADS AD UNIT 2429843 -->
-
-        <div class="menu-grid">
-            <a href="blackjack/BlackJack.html" class="menu-card cat-casino">
-                <h2>Blackjack</h2>
-                <p>Hit or Hold for the perfect volume.</p>
-            </a>
-
-            <a href="slot/Slot.html" class="menu-card">
-                <h2>Slot Machine</h2>
-                <p>Spin the reels and win big!</p>
-            </a>
-
-            <a href="#" class="menu-card disabled">
-                <h2>Scratch Card</h2>
-                <p>Coming Soon...</p>
-            </a>
+        <div id="jackpot-banner" class="hidden">
+            <div class="jackpot-content">
+                <h1 class="blink-text">🎉 YOU HIT THE JACKPOT! 🎉</h1>
+                <p class="jackpot-msg">Too bad <strong id="jackpot-val"></strong>% volume doesn't exist!</p>
+                <p class="jackpot-submsg">Returning to 0% for your inconvenience ;)</p>
+                <button id="accept-defeat">Accept Defeat</button>
+            </div>
         </div>
+
         <footer class="site-footer">
             <div class="footer-links">
-                <p>© 2026 Bad UI Hub - Emanuele Tesi (P.IVA: IT18283301002)</p>
-                <a href="../../privacy-policy.html" target="_blank">Privacy Policy</a> 
-                <a href="../../terms-and-conditions.html" target="_blank">Terms and Conditions</a> 
-                <a href="../../cookie-policy.html" target="_blank">Cookie Policy</a>
+                <a href="../../../privacy-policy.html" target="_blank">Privacy Policy</a>
                 <a href="#" class="termly-display-preferences">Consent Preferences</a>
-                <a href="https://buymeacoffee.com/baduihub" target="_blank" rel="noopener noreferrer" class="donate-btn">
-                    Buy Me a Coffee!
-                </a>
             </div>
         </footer>
     </body>
