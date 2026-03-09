@@ -1,14 +1,34 @@
-#mosquito-area { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1000; }
+#mosquito-area { 
+    position: relative; /* Non più fixed */
+    width: 90%; 
+    max-width: 600px; /* Larghezza massima dell'area */
+    height: 50vh; /* Altezza dinamica (50% dello schermo) */
+    min-height: 300px;
+    margin: 30px auto; /* Centra il box e dà un po' di respiro dal testo sopra */
+    border: 3px dashed #8D6E63; /* Bordo a tratteggio a tema */
+    background-color: rgba(141, 110, 99, 0.05); /* Sfondo leggerissimo */
+    overflow: hidden; /* Evita che mezza zanzara sbordi visivamente */
+    border-radius: 12px;
+    pointer-events: auto; /* Consente i click nell'area */
+    z-index: 10; 
+}
+
+/* Modifichiamo anche la zanzara in modo che si muova rispetto al suo contenitore, non allo schermo */
 #mosquito-thumb {
     width: 18px; height: 18px; background-color: #3e2723; border-radius: 50%;
-    position: absolute; top: 50%; left: 10%; cursor: crosshair; pointer-events: auto;
+    position: absolute; /* Rimane absolute per muoversi DENTRO il relative di #mosquito-area */
+    cursor: crosshair; pointer-events: auto;
     box-shadow: 0 4px 10px rgba(0,0,0,0.6); transition: left 0.1s ease-out, top 0.1s ease-out; 
 }
+
 #mosquito-thumb::before, #mosquito-thumb::after {
     content: ''; position: absolute; width: 12px; height: 6px; background: rgba(255, 255, 255, 0.8);
     border-radius: 50%; top: -3px; animation: flap 0.02s infinite alternate;
 }
+
 #mosquito-thumb::before { left: -8px; transform-origin: right; }
+
 #mosquito-thumb::after { right: -8px; transform-origin: left; }
+
 @keyframes flap { from { transform: rotate(-30deg); } to { transform: rotate(30deg); } }
 #fake-track { width: 100%; max-width: 300px; height: 10px; background-color: #333; border-radius: 5px; margin: 40px 0; position: relative; border: 1px solid #555; }

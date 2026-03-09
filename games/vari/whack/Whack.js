@@ -70,8 +70,9 @@ window.onload = function() {
         btn.style.height = `${size}px`;
         btn.style.fontSize = `${size / 3.5}px`; 
 
-        const maxX = window.innerWidth - size;
-        const maxY = window.innerHeight - size;
+        // Usiamo le dimensioni reali del box di gioco anziché quelle dello schermo
+        const maxX = gameArea.clientWidth - size;
+        const maxY = gameArea.clientHeight - size;
         btn.style.left = `${Math.floor(Math.random() * maxX)}px`;
         btn.style.top = `${Math.floor(Math.random() * maxY)}px`;
 

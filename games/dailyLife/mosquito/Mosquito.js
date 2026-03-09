@@ -6,111 +6,94 @@ window.onload = function() {
     const bodyArea = document.getElementById('body-area');
     
     const mosquito = document.getElementById('mosquito-thumb');
+    const mosquitoArea = document.getElementById('mosquito-area');
 
     let currentVolume = 0;
     audio.volume = 0;
     let isSquashed = false;
 
-    // Mosquito Coordinates
-    let mX = window.innerWidth * 0.1;
-    let mY = window.innerHeight * 0.5;
+    // Coordinate iniziali della zanzara (al centro dell'area di gioco)
+    let mX = mosquitoArea.clientWidth / 2;
+    let mY = mosquitoArea.clientHeight / 2;
     
-    // Tracking mouse to calculate speed
-    let lastMouseX = window.innerWidth / 2;
-    let lastMouseY = window.innerHeight / 2;
+    // Tracciamento del mouse per calcolare la velocità
+    let lastMouseX = mosquitoArea.clientWidth / 2;
+    let lastMouseY = mosquitoArea.clientHeight / 2;
 
-    const EVASION_RADIUS = 120; 
-    const SAFE_SPEED = 2.5; 
+    // Difficoltà bilanciata
+    const EVASION_RADIUS = 60; 
+    const SAFE_SPEED = 3.5; 
 
     function updateMosquito() {
         if (isSquashed) return;
 
-        // 1. EFFETTO PAC-MAN: Se esce dallo schermo, riappare dall'altra parte
-        if (mX > window.innerWidth) mX = 0;
-        if (mX < 0) mX = window.innerWidth;
-        if (mY > window.innerHeight) mY = 0;
-        if (mY < 0) mY = window.innerHeight;
+        // Calcoliamo i limiti massimi considerando la larghezza della zanzara stessa
+        let maxX = mosquitoArea.clientWidth - mosquito.offsetWidth;
+        let maxY = mosquitoArea.clientHeight - mosquito.offsetHeight;
+
+        // EFFETTO PAC-MAN modificato per i bordi del box
+        if (mX > maxX) mX = 0;
+        if (mX < 0) mX = maxX;
+        if (mY > maxY) mY = 0;
+        if (mY < 0) mY = maxY;
         
         mosquito.style.left = mX + 'px';
         mosquito.style.top = mY + 'px';
     }
 
-    // 3. MOVIMENTO PERPETUO: La zanzara non sta mai ferma
-    setInterval(() => {
-        if (!isSquashed) {
-            mX += (Math.random() - 0.5) * 15; // Tremolio casuale
-            mY += (Math.random() - 0.5) * 15;
-            updateMosquito();
-        }
-    }, 100);
-
-    function scareMosquito(intensity = 1) {
-        if (isSquashed) return;
-        mX += (Math.random() - 0.5) * 500 * intensity;
-        mY += (Math.random() - 0.5) * 500 * intensity;
+    function scareMosquito(multiplier = 1) {
+        // Semplice movimento di scatto casuale per spaventare la zanzara
+        mX += (Math.random() - 0.5) * 200 * multiplier;
+        mY += (Math.random() - 0.5) * 200 * multiplier;
         updateMosquito();
-
-        buzzSound.volume = 1;
-        setTimeout(() => { buzzSound.volume = 0.2; }, 500);
     }
 
-    // --- EVASION MECHANIC ---
-    function handleMove(clientX, clientY) {
-        if (audio.paused) audio.play().catch(() => {});
-        if (buzzSound.paused) { buzzSound.volume = 0.2; buzzSound.play().catch(() => {}); }
+    // Logica per far scappare la zanzara in base alla velocità del mouse
+    document.addEventListener('mousemove', function(e) {
+        if (isSquashed) return;
 
-        let speed = Math.sqrt(Math.pow(clientX - lastMouseX, 2) + Math.pow(clientY - lastMouseY, 2));
-        lastMouseX = clientX;
-        lastMouseY = clientY;
+        // Calcola la velocità del mouse
+        let speedX = e.clientX - lastMouseX;
+        let speedY = e.clientY - lastMouseY;
+        let mouseSpeed = Math.sqrt(speedX * speedX + speedY * speedY);
+        
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
 
-        let distX = mX - clientX;
-        let distY = mY - clientY;
-        let distance = Math.sqrt(distX*distX + distY*distY);
+        // Ottieni la posizione reale della zanzara rispetto allo schermo
+        let rect = mosquito.getBoundingClientRect();
+        let mosqCenterX = rect.left + rect.width / 2;
+        let mosqCenterY = rect.top + rect.height / 2;
 
-        if (distance < EVASION_RADIUS && speed > SAFE_SPEED) {
-            let escapeX = (distX / distance) * 180;
-            let escapeY = (distY / distance) * 180;
-            
-            mX += escapeX + (Math.random() - 0.5) * 50; 
-            mY += escapeY + (Math.random() - 0.5) * 50;
-            
-            updateMosquito();
-            buzzSound.volume = 0.8; 
-        } else {
-            buzzSound.volume = 0.2; 
+        let distX = e.clientX - mosqCenterX;
+        let distY = e.clientY - mosqCenterY;
+        let distance = Math.sqrt(distX * distX + distY * distY);
+
+        if (distance < EVASION_RADIUS) {
+            if (mouseSpeed > SAFE_SPEED) {
+                // Spaventa la zanzara spingendola via
+                mX -= (distX / distance) * 50;
+                mY -= (distY / distance) * 50;
+                updateMosquito();
+            }
         }
-    }
-
-    document.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
-    document.addEventListener('touchmove', (e) => {
-        handleMove(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: false });
-
-    // --- SQUASHING THE MOSQUITO ---
-    mosquito.addEventListener('mousedown', (e) => {
-        e.stopPropagation(); 
-        trySquash(e.clientX, e.clientY);
     });
 
-    mosquito.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        trySquash(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: false });
+    // Evento: Zanzara Schiacciata
+    function squashEvent(e) {
+        e.stopPropagation(); // BLOCCA IL CLICK QUI, NON ARRIVA AL BODY!
 
-    function trySquash(clientX, clientY) {
-        // 2. IL SESTO SENSO: Calcola se l'utente è "apparso dal nulla" (Tap diretto su mobile)
-        let tapDistance = Math.sqrt(Math.pow(clientX - lastMouseX, 2) + Math.pow(clientY - lastMouseY, 2));
-        
-        // Se la distanza dal lastMouseX è troppo grande, è un "Tap" e non un trascinamento!
-        if (tapDistance > 30) {
-            scareMosquito(2);
-            missedClick(); // Lo puniamo come se avesse mancato
-            return;
-        }
-
+        if (isSquashed) return;
         isSquashed = true;
-        let percentage = (mX / window.innerWidth) * 100;
+
+        let maxX = mosquitoArea.clientWidth - mosquito.offsetWidth;
+        
+        // Calcola la percentuale in base ai bordi reali del box
+        let percentage = (mX / maxX) * 100;
+        
+        // Per evitare numeri strani come 101% o -1% dovuti agli arrotondamenti
+        percentage = Math.max(0, Math.min(100, percentage));
+
         currentVolume = Math.round(percentage);
         
         audio.volume = currentVolume / 100;
@@ -133,10 +116,10 @@ window.onload = function() {
         }, 2000);
     }
 
-    // --- PUNISHMENT FOR SPAM CLICKING ---
-    bodyArea.addEventListener('mousedown', missedClick);
-    bodyArea.addEventListener('touchstart', missedClick);
+    mosquito.addEventListener('mousedown', squashEvent);
+    mosquito.addEventListener('touchstart', squashEvent);
 
+    // --- PUNIZIONE PER CHI CLICCA A VUOTO (MISS) ---
     function missedClick() {
         if (currentVolume > 0) {
             currentVolume = 0;
@@ -145,10 +128,21 @@ window.onload = function() {
             valueDisplay.style.color = "#f44336";
             
             mockSound.volume = 1;
-            mockSound.currentTime = 0;
             mockSound.play();
-            localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
         }
         scareMosquito(1.5);
     }
-}
+
+    // Colleghiamo la punizione allo sfondo
+    bodyArea.addEventListener('mousedown', missedClick);
+    bodyArea.addEventListener('touchstart', missedClick);
+    
+    // Avvia l'aggiornamento costante della posizione (effetto fluido)
+    setInterval(updateMosquito, 20);
+
+    // Inizializza l'audio al primissimo click dell'utente nella pagina (policy dei browser)
+    bodyArea.addEventListener('click', function() {
+        if (audio.paused) audio.play();
+        if (buzzSound.paused) buzzSound.play();
+    }, { once: true });
+};
