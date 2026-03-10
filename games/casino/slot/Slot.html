@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="UTF-8">
+
+        <title>Volume Slot</title>
+
+        <link rel="icon" href="/img/BadUIHub.png" type="image/png">
+
+        <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
+        <meta name="theme-color" content="#f44336">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Bad UI Hub: Volume Slot">
+        <meta property="og:description" content="Can you survive the torture? Try to set your volume with the Slot Machine.">
+        <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
+
+        <script src="https://app.termly.io/resource-blocker/48f43e02-cb14-4933-988b-b64dc3489783?autoBlock=on" onload="onTermlyLoaded()"></script>
+
+        <script>
+            let initialConsent = null;
+
+            function onTermlyLoaded() {
+                // Ci assicuriamo che l'oggetto Termly sia pronto
+                if (window.Termly) {
+                    window.Termly.on('consent', function(data) {
+                        // Al primo caricamento salviamo lo stato iniziale
+                        if (initialConsent === null) {
+                            initialConsent = JSON.stringify(data.categories);
+                        } else {
+                            // Se l'utente cambia le preferenze, ricarichiamo la pagina
+                            let newConsent = JSON.stringify(data.categories);
+                            if (initialConsent !== newConsent) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+        
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQ5KP12WZ7"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BQ5KP12WZ7');
+        </script>
+        <!-- End Google tag (gtag.js) -->
+
+        <link rel="stylesheet" href="../../../slider.css">
+        <link rel="stylesheet" href="Slot.css">
+        <script src="Slot.js"></script>
+
+    </head>
+    <body>
+        <audio id="background-audio" loop>
+            <source src="../../../audio/mainmusic.mp3" type="audio/mpeg">
+        </audio>
+
+        <a href="../index.html" class="nav-home">🏠</a>
+            
+        <div class="slot-container">
+            <h2>Adjust the Volume (Try your luck 🎰)</h2>
+            
+            <div class="reels">
+                <div class="reel" id="reel-1">
+                    <span class="symbol">50</span>
+                </div>
+                <div class="reel" id="reel-2">
+                    <span class="symbol">+</span>
+                </div>
+                <div class="reel" id="reel-3">
+                    <span class="symbol">10</span>
+                </div>
+            </div>
+
+            <button id="action-btn" class="bad-btn start-mode">START</button>
+            
+            <div class="volume-display">
+                Current Volume: <span id="current-vol">50</span>%
+            </div>
+        </div>
+
+        <div class="legal-disclaimer">
+            <p>Disclaimer: No real money is involved in this game. The only currency we accept is your sanity.</p>
+        </div>
+
+        <div id="jackpot-banner" class="hidden">
+            <div class="jackpot-content">
+                <h1 class="blink-text">🎉 YOU HIT THE JACKPOT! 🎉</h1>
+                <p class="jackpot-msg">Too bad <strong id="jackpot-val"></strong>% volume doesn't exist!</p>
+                <p class="jackpot-submsg">Returning to 0% for your inconvenience ;)</p>
+                <button id="accept-defeat">Accept Defeat</button>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="../../../privacy-policy.html" target="_blank">Privacy Policy</a>
+                <a href="#" class="termly-display-preferences">Consent Preferences</a>
+            </div>
+        </footer>
+    </body>
+</html>
