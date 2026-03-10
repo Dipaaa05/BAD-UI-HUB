@@ -136,6 +136,7 @@ audio { display: none; }
 .cat-life { border-top-color: #8D6E63; }
 .cat-sport { border-top-color: #00BCD4; }
 .cat-misc { border-top-color: #607D8B; }
+.cat-arcade { border-top-color: #FF5722; }
 
 /* Card Disabilitata (Coming Soon) */
 .menu-card.disabled {

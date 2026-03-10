@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        
-        <title>Physics - Bad UI</title>
+        <meta charset="UTF-8">
+
+        <title>Drag & Drop Volume</title>
 
         <link rel="icon" href="/img/BadUIHub.png" type="image/png">
 
         <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
         <meta name="theme-color" content="#f44336">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="Bad UI Hub: Physics section">
-        <meta property="og:description" content="Choose your Newtonian challenge.">
+        <meta property="og:title" content="Bad UI Hub: Drag & Drop Volume">
+        <meta property="og:description" content="Can you survive the torture? Drag and drop to set your volume... carefully.">
         <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
@@ -38,7 +38,7 @@
                 }
             }
         </script>
-
+        
         <script src="https://app.termly.io/resource-blocker/48f43e02-cb14-4933-988b-b64dc3489783?autoBlock=on" onload="onTermlyLoaded()"></script>
 
         <!-- Google tag (gtag.js) -->
@@ -52,55 +52,38 @@
         </script>
         <!-- End Google tag (gtag.js) -->
 
-        <link rel="stylesheet" href="../../slider.css">
+        <link rel="stylesheet" href="../../../slider.css">
+        <link rel="stylesheet" href="DragDrop.css">
+        <script defer src="DragDrop.js"></script>
+
     </head>
     <body>
-        <a href="../../index.html" class="nav-home">🏠</a>
+        <a href="../index.html" class="nav-home">🏠</a>
+        <div id="container">
+            <audio id="audio" src="../../../audio/mainmusic.mp3" autoplay loop></audio>
+            <audio id="mock-sound" src="../../../audio/mocksound.mp3"></audio>
 
-        <div class="menu-header">
-            <img src="../../img/category-physics.png" alt="Physics" class="category-icon" style="width: 250px; height: 250px;">
-            <h1 style="color: #9C27B0;">Physics</h1>
-            <p class="subtitle">Gravity and friction are your enemies.</p>
+            <h2>Drag & Drop</h2>
+            <p class="instructions" style="font-size: 0.9em; margin-bottom: 15px;">
+                Drag the icons from the basket to the drop area.<br>
+            </p>
+
+            <div class="workspace">
+                <div id="basket">
+                    <div class="speaker-icon" draggable="true" id="source-speaker">🔊</div>
+                </div>
+                
+                <div id="drop-area"></div>
+            </div>
+            
+            <input type="range" id="volume" min="0" max="100" value="0" disabled>
+            <p id="value">Volume: 0%</p>
         </div>
-
-        <!-- BEGIN AADS AD UNIT 2429843 -->
-
-        <div id="frame" style="width: 100%; text-align: center; margin-top: 20px; overflow: hidden;">
-                <iframe
-                data-aa='2429843' 
-                src='https://acceptable.a-ads.com/2429843/?size=Adaptive&background_color=1a1a1a&title_color=f44336&title_hover_color=ffac00'
-                style='border:0; padding:0; width:100%; max-width:728px; height:90px; overflow:hidden; background-color:transparent;'>
-                </iframe>
-        </div>
-
-        <!-- END AADS AD UNIT 2429843 -->
-
-        <div class="menu-grid">
-            <a href="toss/Toss.html" class="menu-card cat-physics">
-                <h2>Parabolic Toss</h2>
-                <p>Calculate the perfect trajectory.</p>
-            </a>
-
-            <a href="lever/Lever.html" class="menu-card cat-physics">
-                <h2>The Lever</h2>
-                <p>Keep the balance, if you can.</p>
-            </a>
-
-            <a href="#" class="menu-card disabled">
-                <h2>The Balloon</h2>
-                <p>Coming Soon...</p>
-            </a>
-        </div>
+        
         <footer class="site-footer">
             <div class="footer-links">
-                <p>© 2026 Bad UI Hub - Emanuele Tesi (P.IVA: IT18283301002)</p>
-                <a href="../../privacy-policy.html" target="_blank">Privacy Policy</a>
-                <a href="../../terms-and-conditions.html" target="_blank">Terms and Conditions</a>
-                <a href="../../cookie-policy.html" target="_blank">Cookie Policy</a>
+                <a href="../../../privacy-policy.html" target="_blank">Privacy Policy</a>
                 <a href="#" class="termly-display-preferences">Consent Preferences</a>
-                <a href="https://buymeacoffee.com/baduihub" target="_blank" rel="noopener noreferrer" class="donate-btn">
-                    Buy Me a Coffee!
-                </a>
             </div>
         </footer>
     </body>

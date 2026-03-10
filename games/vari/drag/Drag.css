@@ -1,0 +1,64 @@
+.workspace {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+#basket {
+    width: 80px;
+    height: 80px;
+    border: 3px dashed #666;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.speaker-icon {
+    font-size: 30px;
+    cursor: grab;
+    user-select: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.speaker-icon:active {
+    cursor: grabbing;
+}
+
+/* Area aumentata: frustrante ma possibile */
+#drop-area {
+    width: 350px;
+    height: 350px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    position: relative;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+.dropped-speaker {
+    position: absolute;
+    font-size: 20px; /* Leggermente più piccola nel box per dare un'illusione di spazio */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; /* Fondamentale per farli scontrare */
+    transition: transform 0.2s, opacity 0.2s;
+    user-select: none;
+}
+
+.destroyed {
+    transform: scale(1.8);
+    opacity: 0;
+    color: red;
+}
