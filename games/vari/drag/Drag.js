@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentVolume = 0;
     const iconSize = 30; // La hitbox effettiva degli elementi droppati
 
+    // Carica i fallimenti dal Local Storage (invisibile all'utente in questa pagina)
+    let failureCount = parseInt(localStorage.getItem('dragDropFailures')) || 0;
+
     // Inizializza volume audio a 0
     mainAudio.volume = 0;
 
@@ -54,6 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // COLLISIONE: distrugge l'icona
             collisionTarget.classList.add('destroyed');
             collisionTarget.textContent = '💥';
+            
+            // Aggiorna silenziosamente il Local Storage
+            failureCount++;
+            localStorage.setItem('dragDropFailures', failureCount);
             
             if (errorSound) {
                 errorSound.currentTime = 0;

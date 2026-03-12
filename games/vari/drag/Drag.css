@@ -1,7 +1,9 @@
 .workspace {
     display: flex;
+    flex-direction: row-reverse; /* Assicura l'allineamento orizzontale */
     justify-content: center;
-    align-items: flex-start;
+    align-items: center; /* Allinea al centro verticalmente basket e drop area */
+    flex-wrap: wrap; /* Evita che si rompano uscendo dallo schermo da mobile */
     margin: 20px 0;
     gap: 20px;
 }
@@ -9,35 +11,49 @@
 #basket {
     width: 80px;
     height: 80px;
-    border: 3px dashed #666;
+    border: 3px solid #666;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #e0e0e0;
+    
+    /* Magia per l'effetto "pieno di icone": un pattern SVG ripetuto */
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><text x='0' y='16' font-size='14' opacity='0.3'>🔊</text></svg>");
+    background-repeat: repeat;
+    background-size: 20px 20px;
+    
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    position: relative;
 }
 
-.speaker-icon {
+/* L'icona da trascinare deve staccarsi dal background caotico */
+#source-speaker {
     font-size: 30px;
     cursor: grab;
     user-select: none;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    z-index: 2;
 }
 
-.speaker-icon:active {
+#source-speaker:active {
     cursor: grabbing;
 }
 
-/* Area aumentata: frustrante ma possibile */
 #drop-area {
-    width: 350px;
-    height: 350px;
-    border: 2px solid #333;
-    border-radius: 4px;
+    width: 100%; /* Rende l'area responsive */
+    max-width: 320px;
+    height: 320px;
+    /* Bordo tratteggiato ben visibile come richiesto */
+    border: 3px dashed #333; 
+    border-radius: 8px;
     position: relative;
     background-color: #f9f9f9;
     overflow: hidden;
@@ -46,13 +62,13 @@
 
 .dropped-speaker {
     position: absolute;
-    font-size: 20px; /* Leggermente più piccola nel box per dare un'illusione di spazio */
+    font-size: 20px; 
     width: 30px;
     height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: auto; /* Fondamentale per farli scontrare */
+    pointer-events: auto; 
     transition: transform 0.2s, opacity 0.2s;
     user-select: none;
 }

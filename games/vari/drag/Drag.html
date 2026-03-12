@@ -53,31 +53,32 @@
         <!-- End Google tag (gtag.js) -->
 
         <link rel="stylesheet" href="../../../slider.css">
-        <link rel="stylesheet" href="DragDrop.css">
-        <script defer src="DragDrop.js"></script>
+        <link rel="stylesheet" href="Drag.css">
+        <script defer src="Drag.js"></script>
 
     </head>
     <body>
         <a href="../index.html" class="nav-home">🏠</a>
-        <div id="container">
-            <audio id="audio" src="../../../audio/mainmusic.mp3" autoplay loop></audio>
-            <audio id="mock-sound" src="../../../audio/mocksound.mp3"></audio>
+        <div style="display: flex; flex-direction: column; height: 100vh">
+            <div id="container">
+                <audio id="audio" src="../../../audio/mainmusic.mp3" autoplay loop></audio>
+                <audio id="mock-sound" src="../../../audio/mocksound.mp3"></audio>
 
-            <h2>Drag & Drop</h2>
-            <p class="instructions" style="font-size: 0.9em; margin-bottom: 15px;">
-                Drag the icons from the basket to the drop area.<br>
-            </p>
+                <h2>Drag & Drop</h2>
+                <p class="instructions" style="font-size: 0.9em; margin-bottom: 20px;">
+                    Drag the icons from the basket to the drop area.
+                </p>
+                
+                <input type="range" id="volume" min="0" max="100" value="0" disabled>
+                <p id="value" style="margin-bottom: 30px;">Volume: 0%</p>
+                
+            </div>
 
             <div class="workspace">
                 <div id="basket">
                     <div class="speaker-icon" draggable="true" id="source-speaker">🔊</div>
                 </div>
-                
-                <div id="drop-area"></div>
-            </div>
-            
-            <input type="range" id="volume" min="0" max="100" value="0" disabled>
-            <p id="value">Volume: 0%</p>
+            <div id="drop-area"></div>
         </div>
         
         <footer class="site-footer">
