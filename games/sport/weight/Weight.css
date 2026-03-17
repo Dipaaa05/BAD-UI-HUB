@@ -1,0 +1,120 @@
+/* Weightlifting.css */
+.game-stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    user-select: none;
+    touch-action: manipulation; /* Ottimizza i tap rapidi su mobile */
+}
+
+/* --- LA RASTRELLIERA --- */
+#rack-container {
+    position: relative;
+    width: 200px;
+    height: 220px;
+    border-bottom: 10px solid #555; /* Il pavimento */
+    display: flex;
+    justify-content: center;
+}
+
+.rack-pole {
+    width: 12px;
+    height: 100%;
+    background: linear-gradient(to right, #666, #999, #666);
+    position: absolute;
+    bottom: 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.rack-pole.left { left: 30px; }
+.rack-pole.right { right: 30px; }
+
+/* --- IL BILANCIERE --- */
+#barbell-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    bottom: 0%; /* Questa percentuale verrà controllata dal JS */
+    transition: bottom 0.05s linear; /* Piccola transizione per fluidità visiva */
+}
+
+#barbell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bar {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to bottom, #ddd, #888);
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.4);
+}
+
+.weight-plate {
+    width: 20px;
+    height: 60px;
+    background-color: #333;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 2;
+    border-left: 3px solid #555;
+    border-right: 3px solid #111;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+.weight-plate.left { left: 10px; }
+.weight-plate.right { right: 10px; }
+
+.weight-plate::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px; height: 10px;
+    background-color: #888;
+    border-radius: 50%;
+}
+
+/* Animazione in caso di Lock o Tremolio per sforzo */
+.struggle {
+    animation: shake-bar 0.1s infinite alternate;
+}
+
+@keyframes shake-bar {
+    from { transform: rotate(-2deg) translateY(1px); }
+    to { transform: rotate(2deg) translateY(-1px); }
+}
+
+#crash-effect {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f44336;
+    position: absolute;
+    bottom: 0px;
+    text-shadow: 2px 2px 0 #000;
+    z-index: 10;
+}
+
+/* Stili specifici per mobile */
+.mobile-hint {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-hint { display: block; }
+    #lock-btn-mobile { display: inline-block !important; }
+}

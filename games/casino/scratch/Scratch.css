@@ -1,0 +1,51 @@
+/* Scratch.css */
+.scratch-wrapper {
+    width: 100%;
+    height: 200px; /* Area in cui la schedina può muoversi */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+}
+
+#scratch-container {
+    position: relative;
+    width: 250px;
+    height: 120px;
+    user-select: none;
+    cursor: crosshair; /* Cursore fastidioso */
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    touch-action: none; /* Previene lo scroll su mobile mentre si gratta */
+}
+
+#scratch-result {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    border: 3px dashed #888;
+    z-index: 1;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+#scratch-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 2;
+    border-radius: 10px;
+}
+
+/* Messaggio di testo per il volume */
+#current-volume-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4CAF50;
+}

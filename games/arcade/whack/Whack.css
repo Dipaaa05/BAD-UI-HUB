@@ -39,7 +39,7 @@ body {
     animation: pop 0.2s forwards;
 }
 .mole-btn { background-color: #4CAF50; width: 50px; height: 50px; z-index: 2; }
-.bomb-btn { background-color: #f44336; width: 60px; height: 60px; z-index: 1; }
+.bomb-btn { background-color: #4CAF50; width: 60px; height: 60px; z-index: 1; }
 
 @keyframes pop {
     to { transform: scale(1); }

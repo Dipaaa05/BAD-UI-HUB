@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="UTF-8">
 
-        <title>Casino - Bad UI</title>
+        <title>Balloon Volume</title>
 
         <link rel="icon" href="/img/BadUIHub.png" type="image/png">
 
         <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
         <meta name="theme-color" content="#f44336">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="Bad UI Hub: Casino section">
-        <meta property="og:description" content="Choose your game and test your (non) luck.">
+        <meta property="og:title" content="Bad UI Hub: Balloon Volume">
+        <meta property="og:description" content="Can you survive the torture? Try to set your volume by inflating the balloon.">
         <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
@@ -52,55 +52,44 @@
         </script>
         <!-- End Google tag (gtag.js) -->
 
-        <link rel="stylesheet" href="../../slider.css">
+        <link rel="stylesheet" href="../../../slider.css">
+        <link rel="stylesheet" href="Balloon.css">
+        <script src="Balloon.js"></script>
     </head>
     <body>
-        <a href="../../index.html" class="nav-home">🏠</a>
+        <a href="../index.html" class="nav-home">🏠</a>
+        <div id="container">
+            <audio id="audio" src="../../../audio/mainmusic.mp3" autoplay loop></audio>
+            
+            <audio id="mock-sound" src="../../../audio/mocksound.mp3"></audio>
 
-        <div class="menu-header">
-            <img src="../../img/category-casino.png" alt="Casino" class="category-icon" style="width: 250px; height: 250px;">
-            <h1 style="color: #FFD700;">Casino</h1>
-            <p class="subtitle">Luck won't save you here.</p>
-        </div>
-
-        <!-- BEGIN AADS AD UNIT 2429843 -->
-
-        <div id="frame" style="width: 100%; text-align: center; margin-top: 20px; overflow: hidden;">
-                <iframe 
-                data-aa='2429843' 
-                src='https://acceptable.a-ads.com/2429843/?size=Adaptive&background_color=1a1a1a&title_color=f44336&title_hover_color=ffac00'
-                style='border:0; padding:0; width:100%; max-width:728px; height:90px; overflow:hidden; background-color:transparent;'>
-                </iframe>
-        </div>
-
-        <!-- END AADS AD UNIT 2429843 -->
-
-        <div class="menu-grid">
-            <a href="blackjack/BlackJack.html" class="menu-card cat-casino">
-                <h2>Blackjack</h2>
-                <p>Hit or Hold for the perfect volume.</p>
-            </a>
-
-            <a href="slot/Slot.html" class="menu-card cat-casino">
-                <h2>Slot Machine</h2>
-                <p>Spin the reels and win big!</p>
-            </a>
-
-            <a href="scratch/Scratch.html" class="menu-card cat-casino">
-                <h2>Scratch Card</h2>
-                <p>Scratch to reveal your volume!</p>
-            </a>
+            <div id="game-area">
+                <h2>Balloon Volume</h2>
+                <p class="hint-text">Drag the pump handle up and down to inflate the balloon. Press <b>SPACE</b> to tie a knot. Don't let it pop!</p>
+                
+                <div class="game-stage">
+                    <div id="balloon-container">
+                        <div id="balloon"></div>
+                        <div id="pop-effect" style="display: none;">💥 BOOM!</div>
+                    </div>
+                    
+                    <div id="pump-container">
+                        <div id="pump-track">
+                            <div id="pump-rod"></div>
+                            <div id="pump-handle"></div>
+                        </div>
+                        <div id="pump-base"></div>
+                    </div>
+                </div>
+                
+                <button id="new-balloon-btn" class="btn" style="display:none;">Get New Balloon</button>
+                <p id="current-volume-text">Current volume: ?</p>
+            </div>
         </div>
         <footer class="site-footer">
             <div class="footer-links">
-                <p>© 2026 Bad UI Hub - Emanuele Tesi (P.IVA: IT18283301002)</p>
-                <a href="../../privacy-policy.html" target="_blank">Privacy Policy</a> 
-                <a href="../../terms-and-conditions.html" target="_blank">Terms and Conditions</a> 
-                <a href="../../cookie-policy.html" target="_blank">Cookie Policy</a>
+                <a href="../../../privacy-policy.html" target="_blank">Privacy Policy</a>
                 <a href="#" class="termly-display-preferences">Consent Preferences</a>
-                <a href="https://buymeacoffee.com/baduihub" target="_blank" rel="noopener noreferrer" class="donate-btn">
-                    Buy Me a Coffee!
-                </a>
             </div>
         </footer>
     </body>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="UTF-8">
+
+        <title>Weight Lifting Volume</title>
+
+        <link rel="icon" href="/img/BadUIHub.png" type="image/png">
+
+        <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
+        <meta name="theme-color" content="#f44336">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Bad UI Hub: Weight Lifting Volume">
+        <meta property="og:description" content="Can you survive the torture? Try to set your volume by lifting the barbell.">
+        <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
+
+        <script>
+            let initialConsent = null;
+
+            function onTermlyLoaded() {
+                // Ci assicuriamo che l'oggetto Termly sia pronto
+                if (window.Termly) {
+                    window.Termly.on('consent', function(data) {
+                        // Al primo caricamento salviamo lo stato iniziale
+                        if (initialConsent === null) {
+                            initialConsent = JSON.stringify(data.categories);
+                        } else {
+                            // Se l'utente cambia le preferenze, ricarichiamo la pagina
+                            let newConsent = JSON.stringify(data.categories);
+                            if (initialConsent !== newConsent) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+        
+        <script src="https://app.termly.io/resource-blocker/48f43e02-cb14-4933-988b-b64dc3489783?autoBlock=on" onload="onTermlyLoaded()"></script>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQ5KP12WZ7"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BQ5KP12WZ7');
+        </script>
+        <!-- End Google tag (gtag.js) -->
+
+        <link rel="stylesheet" href="../../../slider.css">
+        <link rel="stylesheet" href="Weight.css">
+        <script src="Weight.js"></script>
+    </head>
+    <body>
+        <a href="../index.html" class="nav-home">🏠</a>
+        <div id="container">
+            <audio id="audio" src="../../../audio/mainmusic.mp3" autoplay loop></audio>
+            
+            <audio id="mock-sound" src="../../../audio/mocksound.mp3"></audio>
+
+            <div id="game-area">
+                <h2>Weightlifting Volume</h2>
+                <p class="hint-text">Press <b>SPACE</b> repeatedly to lift the volume. Press <b>ENTER</b> to lock it on the rack. Don't let it fall!</p>
+                
+                <div class="game-stage" id="mobile-mash-area">
+                    <div id="rack-container">
+                        <div class="rack-pole left"></div>
+                        <div class="rack-pole right"></div>
+                        
+                        <div id="barbell-wrapper">
+                            <div id="barbell">
+                                <div class="weight-plate left"></div>
+                                <div class="bar"></div>
+                                <div class="weight-plate right"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="crash-effect" style="display: none;">💥 CRASH!</div>
+                    </div>
+                </div>
+                
+                <p class="mobile-hint">On mobile: touch the area of the barbell, then use the button below.</p>
+                <button id="lock-btn-mobile" class="btn" style="display:none; margin-bottom:10px;">Lock Volume (ENTER)</button>
+                <button id="new-try-btn" class="btn" style="display:none;">Try Again (If You Have Breath)</button>
+                
+                <p id="current-volume-text">Current volume: 0%</p>
+            </div>
+            
+        </div>
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="../../../privacy-policy.html" target="_blank">Privacy Policy</a>
+                <a href="#" class="termly-display-preferences">Consent Preferences</a>
+            </div>
+        </footer>
+    </body>
+</html>
