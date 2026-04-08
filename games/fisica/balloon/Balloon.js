@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pumpHandle = document.getElementById("pump-handle");
     const pumpTrack = document.getElementById("pump-track");
     const btnNewBalloon = document.getElementById("new-balloon-btn");
+    const btnTieKnot = document.getElementById("tie-knot-btn");
     const volumeText = document.getElementById("current-volume-text");
     const audio = document.getElementById("audio");
     const mockSound = document.getElementById("mock-sound");
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         volumeText.innerText = "Current volume: ?";
         volumeText.style.color = "white";
         btnNewBalloon.style.display = "none";
+        btnTieKnot.style.display = "inline-block";
 
         cancelAnimationFrame(gameLoop);
         gameLoop = requestAnimationFrame(updateGame);
@@ -163,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
         popEffect.style.display = "block";
         volumeText.innerText = "Current volume: POP! (0%)";
         volumeText.style.color = "#f44336";
+        btnTieKnot.style.display = "none";
         btnNewBalloon.style.display = "inline-block";
 
         localStorage.setItem('badui_fails', parseInt(localStorage.getItem('badui_fails') || 0) + 1);
@@ -188,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         volumeText.innerText = `Current volume: ${finalVolume}% (Knot tied!)`;
         volumeText.style.color = "#4CAF50";
+        btnTieKnot.style.display = "none";
         btnNewBalloon.style.display = "inline-block";
         btnNewBalloon.innerText = "Change Volume (New Balloon)";
     }
@@ -209,6 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     btnNewBalloon.addEventListener("click", initGame);
+    btnTieKnot.addEventListener("click", tieKnot);
 
     initGame();
 });
