@@ -17,7 +17,8 @@ Here is our current roster of digital suffering categories. Try to get your volu
 2. **Daily Life**: Select your everyday nightmare.
 3. **Phisycs**: Gravity and friction are your enemies.
 4. **Sport**: Sweat and tears for a decent volume.
-5. **Misc**: Fast paced UI disasters.
+5. **Arcade**: Classic fun with terrible UI.
+6. **Misc**: Fast paced UI disasters.
 
 ## How to Play (or how to drive your friends crazy)
 
