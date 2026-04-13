@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="UTF-8">
+
+        <title>Golf Volume</title>
+            
+        <link rel="icon" href="/img/BadUIHub.png" type="image/png">
+
+        <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
+        <meta name="theme-color" content="#f44336">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Bad UI Hub: Golf Volume">
+        <meta property="og:description" content="Can you survive the torture? Try to set your volume with Golf.">
+        <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
+
+        <script>
+            let initialConsent = null;
+
+            function onTermlyLoaded() {
+                // Ci assicuriamo che l'oggetto Termly sia pronto
+                if (window.Termly) {
+                    window.Termly.on('consent', function(data) {
+                        // Al primo caricamento salviamo lo stato iniziale
+                        if (initialConsent === null) {
+                            initialConsent = JSON.stringify(data.categories);
+                        } else {
+                            // Se l'utente cambia le preferenze, ricarichiamo la pagina
+                            let newConsent = JSON.stringify(data.categories);
+                            if (initialConsent !== newConsent) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+
+        <script src="https://app.termly.io/resource-blocker/48f43e02-cb14-4933-988b-b64dc3489783?autoBlock=on" onload="onTermlyLoaded()"></script>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQ5KP12WZ7"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BQ5KP12WZ7');
+        </script>
+        <!-- End Google tag (gtag.js) -->
+
+        <link rel="stylesheet" href="../../../slider.css">
+        <link rel="stylesheet" href="Golf.css">
+        <script src="Golf.js"></script>
+    </head>
+    <body>
+        <a href="../index.html" class="nav-home">🏠</a>
+
+        <div id="container">
+            <h2>Pro-Precision Golf</h2>
+            <p class="subtitle">Get the ball in the hole. Accuracy = Volume.</p>
+
+            <div id="game-wrapper">
+                <canvas id="golfCanvas" width="400" height="300"></canvas>
+                
+                <!-- UI di controllo frustrante -->
+                <div id="controls">
+                    <div class="meter-container">
+                        <label>POWER</label>
+                        <div class="meter"><div id="power-bar"></div></div>
+                    </div>
+                    <button id="shoot-btn" class="btn">HIT</button>
+                </div>
+
+                <div id="status-overlay" class="hidden">
+                    <p id="status-text">HOLE IN ONE!</p>
+                    <button class="btn" id="restart-btn">Next Hole</button>
+                </div>
+            </div>
+
+            <h1 id="value">Volume: 0%</h1>
+            <div id="stats">
+                <span>Strokes: <b id="stroke-count">0</b></span> | 
+                <span>Distance: <b id="dist-count">0</b>px</span>
+            </div>
+
+            <audio id="audio" loop src="../../../audio/test-audio.mp3"></audio>
+            <audio id="mock-sound" src="../../../audio/mocksound.mp3"></audio>
+            
+            <p class="hint-text">Stop the meters at the right time. Total path traveled reduces volume!</p>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="../../../privacy-policy.html" target="_blank">Privacy Policy</a> 
+                <a href="#" class="termly-display-preferences">Consent Preferences</a>
+            </div>
+        </footer>
+    </body>
+</html>

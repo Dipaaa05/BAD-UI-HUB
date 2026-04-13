@@ -1,0 +1,41 @@
+#game-wrapper {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    background: #000;
+    border: 4px solid #FF5722;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: none; /* Nasconde il cursore per aumentare la frustrazione */
+}
+
+#brickCanvas {
+    display: block;
+}
+
+#status-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#status-overlay.hidden {
+    display: none;
+}
+
+#status-text {
+    font-size: 2rem;
+    color: #f44336;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#value {
+    margin-top: 20px;
+    transition: color 0.3s;
+}

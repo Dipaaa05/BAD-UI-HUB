@@ -3,16 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        
-        <title>Sport - Bad UI</title>
+
+        <title>Toaster Volume</title>
 
         <link rel="icon" href="/img/BadUIHub.png" type="image/png">
 
         <meta name="description" content="Welcome to Bad UI Hub, a diabolical collection of the worst ways to control your volume.">
         <meta name="theme-color" content="#f44336">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="Bad UI Hub: Sport section">
-        <meta property="og:description" content="Choose your athletic nightmare.">
+        <meta property="og:title" content="Bad UI Hub: Toaster Volume">
+        <meta property="og:description" content="Can you survive the torture? Try to set your volume with the Toaster.">
         <meta property="og:image" content="https://baduihub.com/img/BadUIHub.png">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:image" content="https://baduihub.com/img/BadUIHub.png">
@@ -38,7 +38,7 @@
                 }
             }
         </script>
-
+        
         <script src="https://app.termly.io/resource-blocker/48f43e02-cb14-4933-988b-b64dc3489783?autoBlock=on" onload="onTermlyLoaded()"></script>
 
         <!-- Google tag (gtag.js) -->
@@ -52,55 +52,44 @@
         </script>
         <!-- End Google tag (gtag.js) -->
 
-        <link rel="stylesheet" href="../../slider.css">
+        <link rel="stylesheet" href="../../../slider.css">
+        <link rel="stylesheet" href="Toaster.css">
+        <script src="Toaster.js"></script>
     </head>
     <body>
-        <a href="../../index.html" class="nav-home">🏠</a>
+        <a href="../index.html" class="nav-home">🏠</a>
+        
+        <div id="container">
+            <h2>Toaster Volume Control</h2>
+            <p class="subtitle">Hold the lever to toast. Release to set volume.</p>
 
-        <div class="menu-header">
-            <img src="../../img/category-sport.png" alt="Sport" class="category-icon" style="width: 250px; height: 250px;">
-            <h1 style="color: #00BCD4;">Sport</h1>
-            <p class="subtitle">Sweat and tears for a decent volume.</p>
+            <div id="toaster-scene">
+                <div id="toaster">
+                    <div class="slot">
+                        <div id="toast"></div>
+                    </div>
+                    <div id="lever-track">
+                        <div id="lever"></div>
+                    </div>
+                </div>
+                <div id="cooking-timer">0%</div>
+                <div id="smoke-container"></div>
+            </div>
+
+            <h1 id="value">Volume: 0%</h1>
+            <p id="status-msg">Pull the lever to start cooking...</p>
+
+            <audio id="audio" loop src="../../../audio/test-audio.mp3"></audio>
+            <audio id="mock-sound" src="../../../audio/mocksound.mp3"></audio>
+            
+            <p class="hint-text">Be careful! You can't see the progress after a few seconds. Don't burn it!</p>
+            <button class="btn" id="retry-btn" style="display: none;">Throw away burnt toast</button>
         </div>
 
-        <!-- BEGIN AADS AD UNIT 2429843 -->
-
-        <div id="frame" style="width: 100%; text-align: center; margin-top: 20px; overflow: hidden;">
-                <iframe
-                data-aa='2429843' 
-                src='https://acceptable.a-ads.com/2429843/?size=Adaptive&background_color=1a1a1a&title_color=f44336&title_hover_color=ffac00'
-                style='border:0; padding:0; width:100%; max-width:728px; height:90px; overflow:hidden; background-color:transparent;'>
-                </iframe>
-        </div>
-
-        <!-- END AADS AD UNIT 2429843 -->
-
-        <div class="menu-grid">
-            <a href="curling/Curling.html" class="menu-card cat-sport">
-                <h2>Curling</h2>
-                <p>Sweep to reach the target.</p>
-            </a>
-
-            <a href="weight/Weight.html" class="menu-card cat-sport">
-                <h2>Weightlifting</h2>
-                <p>Lift the barbell to set your volume.</p>
-            </a>
-
-            <a href="golf/Golf.html" class="menu-card cat-sport">
-                <h2>Golf</h2>
-                <p>Hit the ball into the hole. Accuracy = Volume.</p>
-            </a>
-        </div>
         <footer class="site-footer">
             <div class="footer-links">
-                <p>© 2026 Bad UI Hub - Emanuele Tesi (P.IVA: IT18283301002)</p>
-                <a href="../../privacy-policy.html" target="_blank">Privacy Policy</a> 
-                <a href="../../terms-and-conditions.html" target="_blank">Terms and Conditions</a> 
-                <a href="../../cookie-policy.html" target="_blank">Cookie Policy</a>
+                <a href="../../../privacy-policy.html" target="_blank">Privacy Policy</a>
                 <a href="#" class="termly-display-preferences">Consent Preferences</a>
-                <a href="https://buymeacoffee.com/baduihub" target="_blank" rel="noopener noreferrer" class="donate-btn">
-                    Buy Me a Coffee!
-                </a>
             </div>
         </footer>
     </body>
