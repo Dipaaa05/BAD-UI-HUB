@@ -9,7 +9,8 @@ window.onload = function() {
     const stone = document.getElementById('stone');
     const iceTrack = document.getElementById('ice-track');
 
-    let currentVolume = 0;
+    const referenceWidth = 400; // La larghezza di riferimento per cui la fisica del gioco è stata bilanciata
+    let currentVolume = 0; 
     let position = 10; // Posizione iniziale (left)
     let velocity = 0;
     let isMoving = false;
@@ -25,7 +26,10 @@ window.onload = function() {
     }
 
     function resetStone() {
-        position = 10;
+        const currentTrackWidth = iceTrack.offsetWidth;
+        const scaleFactor = currentTrackWidth / referenceWidth;
+
+        position = 10 * scaleFactor; // Scala la posizione iniziale
         velocity = 0;
         stone.style.left = position + 'px';
         stone.style.transform = 'translateY(-50%) rotate(0deg)';
@@ -37,16 +41,19 @@ window.onload = function() {
     launchBtn.addEventListener('click', () => {
         if (audio.paused) audio.play().catch(() => {});
         
+        const currentTrackWidth = iceTrack.offsetWidth;
+        const scaleFactor = currentTrackWidth / referenceWidth;
+
         // Assegna una spinta iniziale fissa ma "insufficiente" senza la scopa
-        velocity = 3.5; 
+        velocity = 3.5 * scaleFactor; // Scala la velocità iniziale
         isMoving = true;
         launchBtn.disabled = true;
         sweepBtn.disabled = false;
-
+        
         function slideStone() {
             position += velocity;
             // Attrito severo
-            velocity -= 0.04; 
+            velocity -= 0.04 * scaleFactor; // Scala l'attrito
             
             // Applica sia il movimento in asse X, che il mantenimento in centro Y (-50%), più la rotazione
             stone.style.left = position + 'px';
@@ -54,10 +61,11 @@ window.onload = function() {
 
             // CALCOLO CENTRO ESATTO
             const trackWidth = iceTrack.offsetWidth;
-            const targetCenter = trackWidth - 60; // Centro esatto del bersaglio a 100px di larghezza, posizionato a right:10px
-            const stoneCenter = position + (stone.offsetWidth / 2);
+            const targetOffsetFromRight = 60 * scaleFactor; // Scala l'offset del bersaglio dal bordo destro
+            const targetCenter = trackWidth - targetOffsetFromRight; 
+            const stoneCenter = position + (stone.offsetWidth / 2 * scaleFactor); // Scala la metà larghezza della pietra
 
-            // FALLIMENTO: Se supera il centro del bersaglio! (Con 15px di pietà)
+            // FALLIMENTO: Se supera il centro del bersaglio! (Con tolleranza scalata)
             if (stoneCenter > targetCenter + 15) {
                 isMoving = false;
                 cancelAnimationFrame(animationFrame);
@@ -108,8 +116,11 @@ window.onload = function() {
     // EVENTO SPAZZATA (Il cuore della Bad UI)
     sweepBtn.addEventListener('click', () => {
         if (isMoving && velocity > 0) {
+            const currentTrackWidth = iceTrack.offsetWidth;
+            const scaleFactor = currentTrackWidth / referenceWidth;
+
             // Spazzando riduci l'attrito istantaneamente e prolunghi il viaggio
-            velocity += 0.20; 
+            velocity += 0.20 * scaleFactor; // Scala il boost della spazzata
             
             sweepBtn.style.transform = "scale(0.9)";
             setTimeout(() => sweepBtn.style.transform = "scale(1)", 50);

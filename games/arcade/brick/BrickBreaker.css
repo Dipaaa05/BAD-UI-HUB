@@ -1,7 +1,9 @@
 #game-wrapper {
     position: relative;
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    box-sizing: border-box;
     background: #000;
     border: 4px solid #FF5722;
     border-radius: 8px;
@@ -11,6 +13,8 @@
 
 #brickCanvas {
     display: block;
+    width: 100%;
+    height: auto;
 }
 
 #status-overlay {

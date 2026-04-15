@@ -58,13 +58,23 @@ document.addEventListener("DOMContentLoaded", () => {
         paddleWidth = 80 - (val * 0.5); 
     }
 
-    document.addEventListener("mousemove", (e) => {
+    function handleMove(clientX) {
         const rect = canvas.getBoundingClientRect();
-        const relativeX = e.clientX - rect.left;
-        if (relativeX > 0 && relativeX < canvas.width) {
+        // Calcoliamo il rapporto tra la larghezza logica (400) e quella reale nel browser
+        const scaleX = canvas.width / rect.width;
+        const relativeX = (clientX - rect.left) * scaleX;
+        
+        if (relativeX >= 0 && relativeX <= canvas.width) {
             targetPaddleX = relativeX - paddleWidth / 2;
         }
-    });
+    }
+
+    document.addEventListener("mousemove", (e) => handleMove(e.clientX));
+    
+    // Aggiungiamo il supporto touch per rendere il gioco davvero responsive su mobile
+    document.addEventListener("touchmove", (e) => {
+        handleMove(e.touches[0].clientX);
+    }, { passive: true });
 
     function collisionDetection() {
         for (let c = 0; c < columnCount; c++) {
